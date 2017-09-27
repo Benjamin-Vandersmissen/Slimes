@@ -10,8 +10,9 @@
 
 class Slime : public MoveableObject
 {
-public:
+private:
     static sf::Texture* texture;
+public:
 
     Slime(float x, float y, int speed);
 

@@ -9,10 +9,23 @@
 class MoveableObject : public Object{
 protected:
     int speed;
+    bool gravity = false;
+    sf::Vector2f direction = {0,0};
 public:
     MoveableObject(float x, float y, int speed);
 
+    bool isMoveable();
+
     int getSpeed() const;
+
+    bool hasGravity();
+
+    void applyImpulse(sf::Vector2f impulse);
+
+    void setImpulse(sf::Vector2f impulse);
+
+    const sf::Vector2f &getDirection() const;
+
 };
 
 

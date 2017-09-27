@@ -2,12 +2,13 @@
 // Created by benji on 26.09.17.
 //
 
+#include <iostream>
 #include "Window.h"
 
 Window::Window(unsigned int w, unsigned int h) {
     window = new sf::RenderWindow(sf::VideoMode(w,h), "TEST");
     window->setFramerateLimit(60);
-    objects = {new Slime(10,10,5), new Slime(100, 10, 5)};
+    objects = {new Slime(10,10,5), new Wall(300,100), new Wall(300,164), new Wall(300, 228), new Wall(236,228), new Wall(172, 228), new Wall(108,228)};
     controlledObject = (MoveableObject*) objects[0];
 }
 
@@ -22,26 +23,51 @@ void Window::loop() {
                 case sf::Event::Closed:
                 {
                     window->close();
+                    break;
+                }
+
+                case sf::Event::KeyPressed:
+                {
+                    if (event.key.code == sf::Keyboard::Space){
+                        controlledObject->setImpulse({0,-10});
+                    }
                 }
                 default:
                     break;
             }
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
             moveObjectDir(controlledObject, 3);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
             moveObjectDir(controlledObject, 1);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
             moveObjectDir(controlledObject, 0);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
             moveObjectDir(controlledObject,2);
         }
-        window->clear();
         for(Object* object : objects){
+            if (object->isMoveable()){
+                MoveableObject* movObject = (MoveableObject*) object;
+                if (movObject->hasGravity()) {
+                    bool hasSupport = objectAt({movObject->bounds().left, movObject->bounds().top+movObject->bounds().height+1}) != NULL; //Support bottom left
+                    hasSupport |= objectAt({movObject->bounds().left+movObject->bounds().width, movObject->bounds().top+movObject->bounds().height+1}) != NULL;//suport bottom right
+                    if (!hasSupport) {
+                        movObject->applyImpulse({0, gravity});
+                    }
+                    moveObjectTick(movObject);
+                }
+            }
+        }
+        window->clear();
+        for(Object* object : objects)
+        {
             object->draw(*window);
         }
         window->display();
@@ -65,7 +91,7 @@ Object *Window::moveObjectRel(Object *object, float x, float y) {
     dx = x / std::max(std::abs(x),std::abs(y));
     dy = y / std::max(std::abs(x),std::abs(y));
     while(std::abs(a) < std::abs(x) || std::abs(b) < std::abs(y)){
-        Object* obj = moveObject(object, object->getPosition().x+a, object->getPosition().y+b);
+        Object* obj = moveObject(object, object->getPosition().x+dx, object->getPosition().y+dy);
         if (obj){
             object->moveRel(-dx, -dy);
             return obj;
@@ -80,21 +106,21 @@ Object *Window::moveObjectDir(MoveableObject *object, unsigned int direction) {
     if(object->hasGravity()){
         switch (direction) {
             case 0 : // move Up
-                object->applyImpulse({0,-0.5});
+                object->setImpulse({0,-3});
                 break;
             case 1: // move Right
-                object->applyImpulse({0.2,0});
+                object->setImpulse({3,0});
                 break;
             case 2 : // move Down
-                object->applyImpulse({0,0.2});
+                object->setImpulse({0,3});
                 break;
             case 3 : // move Left
-                object->applyImpulse({-0.2,0});
+                object->setImpulse({-3,0});
                 break;
             default:
-                return nullptr;
+                break;
         }
-        return moveObjectRel(object, object->getDirection().x, object->getDirection().y);
+        return nullptr;
     }
     else {
         switch (direction) {
@@ -110,4 +136,16 @@ Object *Window::moveObjectDir(MoveableObject *object, unsigned int direction) {
                 return nullptr;
         }
     }
+}
+
+Object *Window::moveObjectTick(MoveableObject *object) {
+    return moveObjectRel(object, object->getDirection().x, object->getDirection().y);
+}
+
+Object *Window::objectAt(sf::Vector2f position) {
+    for(Object* object : objects){
+        if (object->containsPoint(position))
+            return object;
+    }
+    return nullptr;
 }

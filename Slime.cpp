@@ -2,6 +2,7 @@
 // Created by benji on 26.09.17.
 //
 
+#include <iostream>
 #include "Slime.h"
 
 sf::Texture* Slime::texture = nullptr;
@@ -28,6 +29,14 @@ bool Slime::collision(Object &object) {
     if (object.getType() == "Slime"){
         //Collision with another slime => slimes will pass through each other
         return false;
+    }
+    else if (object.getType() == "Wall"){
+        if (retValue){
+//            //Bounce back from wall
+            direction.x = (std::abs(direction.x) > 1) ? -direction.x / 5 : 0;
+            direction.y = (std::abs(direction.y) > 1) ? -direction.y / 5 : 0;
+        }
+        return retValue;
     }
     else{
         return retValue;

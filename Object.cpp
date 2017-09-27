@@ -35,14 +35,14 @@ const sf::Vector2f &Object::getPosition() const {
     return position;
 }
 
-bool Object::hasGravity() {
-    return gravity;
+bool Object::isMoveable() {
+    return false;
 }
 
-void Object::applyImpulse(sf::Vector2f impulse) {
-    direction += impulse;
+bool Object::containsPoint(sf::Vector2f point) {
+    return _sprite.getGlobalBounds().contains(point);
 }
 
-const sf::Vector2f &Object::getDirection() const {
-    return direction;
+sf::FloatRect Object::bounds() {
+    return _sprite.getGlobalBounds();
 }

@@ -7,6 +7,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "Slime.h"
+#include "Wall.h"
 
 class Window {
 private:
@@ -14,7 +15,7 @@ private:
     std::vector<sf::Texture*> textures;
     std::vector<Object*> objects;
     MoveableObject* controlledObject;
-    float gravity;
+    float gravity = 0.3;
 public:
     Window(unsigned int w, unsigned int h);
 
@@ -29,6 +30,10 @@ public:
     Object* moveObjectRel(Object* object, float x, float y);
 
     Object* moveObjectDir(MoveableObject* object, unsigned int direction);
+
+    Object* moveObjectTick(MoveableObject* object);
+
+    Object* objectAt(sf::Vector2f position);
 };
 
 
