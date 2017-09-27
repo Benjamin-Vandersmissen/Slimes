@@ -34,3 +34,15 @@ bool Object::collision(Object &object) {
 const sf::Vector2f &Object::getPosition() const {
     return position;
 }
+
+bool Object::hasGravity() {
+    return gravity;
+}
+
+void Object::applyImpulse(sf::Vector2f impulse) {
+    direction += impulse;
+}
+
+const sf::Vector2f &Object::getDirection() const {
+    return direction;
+}

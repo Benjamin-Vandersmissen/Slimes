@@ -11,6 +11,8 @@
 class Slime : public MoveableObject
 {
 public:
+    static sf::Texture* texture;
+
     Slime(float x, float y, int speed);
 
     virtual std::string getType();

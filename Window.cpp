@@ -64,7 +64,7 @@ Object *Window::moveObjectRel(Object *object, float x, float y) {
     float dx, dy;
     dx = x / std::max(std::abs(x),std::abs(y));
     dy = y / std::max(std::abs(x),std::abs(y));
-    while(a != x || b != y){
+    while(std::abs(a) < std::abs(x) || std::abs(b) < std::abs(y)){
         Object* obj = moveObject(object, object->getPosition().x+a, object->getPosition().y+b);
         if (obj){
             object->moveRel(-dx, -dy);
@@ -72,22 +72,42 @@ Object *Window::moveObjectRel(Object *object, float x, float y) {
         }
         a += dx;
         b += dy;
-
     }
     return nullptr;
 }
 
 Object *Window::moveObjectDir(MoveableObject *object, unsigned int direction) {
-    switch(direction){
-        case 0 : // move Up
-            return moveObjectRel(object, 0, -object->getSpeed());
-        case 1: // move Right
-            return moveObjectRel(object, object->getSpeed(), 0);
-        case 2 : // move Down
-            return moveObjectRel(object, 0, object->getSpeed());
-        case 3 : // move Left
-            return moveObjectRel(object, -object->getSpeed(), 0);
-        default:
-            return nullptr;
+    if(object->hasGravity()){
+        switch (direction) {
+            case 0 : // move Up
+                object->applyImpulse({0,-0.5});
+                break;
+            case 1: // move Right
+                object->applyImpulse({0.2,0});
+                break;
+            case 2 : // move Down
+                object->applyImpulse({0,0.2});
+                break;
+            case 3 : // move Left
+                object->applyImpulse({-0.2,0});
+                break;
+            default:
+                return nullptr;
+        }
+        return moveObjectRel(object, object->getDirection().x, object->getDirection().y);
+    }
+    else {
+        switch (direction) {
+            case 0 : // move Up
+                return moveObjectRel(object, 0, -object->getSpeed());
+            case 1: // move Right
+                return moveObjectRel(object, object->getSpeed(), 0);
+            case 2 : // move Down
+                return moveObjectRel(object, 0, object->getSpeed());
+            case 3 : // move Left
+                return moveObjectRel(object, -object->getSpeed(), 0);
+            default:
+                return nullptr;
+        }
     }
 }

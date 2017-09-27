@@ -14,6 +14,7 @@ private:
     std::vector<sf::Texture*> textures;
     std::vector<Object*> objects;
     MoveableObject* controlledObject;
+    float gravity;
 public:
     Window(unsigned int w, unsigned int h);
 

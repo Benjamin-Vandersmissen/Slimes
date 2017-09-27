@@ -4,10 +4,16 @@
 
 #include "Slime.h"
 
+sf::Texture* Slime::texture = nullptr;
+
 Slime::Slime(float x, float y, int speed) : MoveableObject(x, y, speed)
 {
-    sf::Texture* texture = new sf::Texture;
-    texture->loadFromFile("./slime.png");
+    if(!texture){
+        texture = new sf::Texture;
+        texture->loadFromFile("./slime.png");
+    }
+    gravity = true;
+
     sf::Sprite sprite1;
     sprite1.setTexture(*texture);
     sprite(sprite1);
@@ -27,4 +33,3 @@ bool Slime::collision(Object &object) {
         return retValue;
     }
 }
-

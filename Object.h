@@ -12,6 +12,8 @@ class Object {
 protected:
     sf::Sprite _sprite;
     sf::Vector2f position;
+    bool gravity = false;
+    sf::Vector2f direction = {0,0};
 public:
     Object(float x, float y);
 
@@ -29,6 +31,11 @@ public:
 
     const sf::Vector2f &getPosition() const;
 
+    bool hasGravity();
+
+    void applyImpulse(sf::Vector2f impulse);
+
+    const sf::Vector2f &getDirection() const;
 };
 
 
