@@ -32,9 +32,11 @@ bool Slime::collision(Object &object) {
     }
     else if (object.getType() == "Wall"){
         if (retValue){
-//            //Bounce back from wall
-            direction.x = (std::abs(direction.x) > 1) ? -direction.x / 5 : 0;
-            direction.y = (std::abs(direction.y) > 1) ? -direction.y / 5 : 0;
+            //Bounce back from wall
+            if(collisionLeft(object) || collisionRight(object))
+                direction.x = (std::abs(direction.x) > 1) ? -direction.x / 5 : 0;
+            if (collisionDown(object) || collisionUp(object))
+                direction.y = (std::abs(direction.y) > 1) ? -direction.y / 5 : 0;
         }
         return retValue;
     }

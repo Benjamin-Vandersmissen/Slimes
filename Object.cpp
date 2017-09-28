@@ -2,6 +2,7 @@
 // Created by benji on 26.09.17.
 //
 
+#include <iostream>
 #include "Object.h"
 
 void Object::sprite(sf::Sprite sprite){
@@ -46,3 +47,46 @@ bool Object::containsPoint(sf::Vector2f point) {
 sf::FloatRect Object::bounds() {
     return _sprite.getGlobalBounds();
 }
+
+bool Object::collision(Object &object, sf::FloatRect &ret) {
+    return (object._sprite.getGlobalBounds().intersects(_sprite.getGlobalBounds(), ret));
+}
+
+bool Object::collisionRight(Object &object) {
+    sf::FloatRect overlap;
+    if(collision(object, overlap)){
+        bool retValue = overlap.left + overlap.width == _sprite.getGlobalBounds().left + _sprite.getGlobalBounds().width ;
+        retValue &= overlap.height > 1;
+        return retValue;
+    }
+    return false;
+}
+
+bool Object::collisionLeft(Object &object) {
+    sf::FloatRect overlap;
+    if(collision(object, overlap)){
+        bool retValue = overlap.left == _sprite.getGlobalBounds().left;
+        retValue &= overlap.height > 1;
+        return retValue;
+    }
+    return false;
+}
+
+bool Object::collisionUp(Object &object) {
+    sf::FloatRect overlap;
+    if(collision(object, overlap)){
+        bool retValue = overlap.top == _sprite.getGlobalBounds().top;
+        retValue &= overlap.width > 1;
+        return retValue;
+    }
+    return false;
+}
+
+bool Object::collisionDown(Object &object) {
+    sf::FloatRect overlap;
+    if(collision(object, overlap)){
+        bool retValue = overlap.top +overlap.height == _sprite.getGlobalBounds().top + _sprite.getGlobalBounds().height;
+        retValue &= overlap.width > 1;
+        return retValue;
+    }
+    return false;}

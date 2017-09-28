@@ -28,6 +28,16 @@ public:
 
     virtual bool collision(Object& object);
 
+    bool collision(Object& object, sf::FloatRect& ret);
+
+    bool collisionRight(Object& object);
+
+    bool collisionLeft(Object& object);
+
+    bool collisionUp(Object& object);
+
+    bool collisionDown(Object& object);
+
     const sf::Vector2f &getPosition() const;
 
     virtual bool isMoveable();

@@ -36,28 +36,18 @@ void Window::loop() {
                     break;
             }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-            moveObjectDir(controlledObject, 3);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-            moveObjectDir(controlledObject, 1);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        {
-            moveObjectDir(controlledObject, 0);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        {
-            moveObjectDir(controlledObject,2);
-        }
+
+        bool keyLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+        bool keyRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+//        bool keyUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+//        bool keyDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+        moveObjectRel(controlledObject, (keyRight-keyLeft)*controlledObject->getSpeed(), 0);
         for(Object* object : objects){
             if (object->isMoveable()){
                 MoveableObject* movObject = (MoveableObject*) object;
                 if (movObject->hasGravity()) {
                     bool hasSupport = objectAt({movObject->bounds().left, movObject->bounds().top+movObject->bounds().height+1}) != NULL; //Support bottom left
-                    hasSupport |= objectAt({movObject->bounds().left+movObject->bounds().width, movObject->bounds().top+movObject->bounds().height+1}) != NULL;//suport bottom right
+                    hasSupport |= objectAt({movObject->bounds().left+movObject->bounds().width-1, movObject->bounds().top+movObject->bounds().height+1}) != NULL;//suport bottom right
                     if (!hasSupport) {
                         movObject->applyImpulse({0, gravity});
                     }
@@ -76,12 +66,14 @@ void Window::loop() {
 }
 
 Object *Window::moveObject(Object *object, float x, float y) {
+    sf::Vector2f origPosition = object->getPosition();
+    object->move(x,y);
     for(Object* object1 : objects){
         if (object->collision(*object1) && object1 != object){
+            object->move(origPosition.x, origPosition.y);
             return object1;
         }
     }
-    object->move(x, y);
     return nullptr;
 }
 
