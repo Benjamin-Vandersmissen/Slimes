@@ -19,6 +19,8 @@ public:
     virtual std::string getType();
 
     bool collision(Object& object);
+
+    Object* clone();
 };
 
 

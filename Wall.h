@@ -14,6 +14,8 @@ public:
     Wall(float x, float y);
 
     std::string getType();
+
+    Object* clone();
 };
 
 

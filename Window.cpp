@@ -8,8 +8,6 @@
 Window::Window(unsigned int w, unsigned int h) {
     window = new sf::RenderWindow(sf::VideoMode(w,h), "TEST");
     window->setFramerateLimit(60);
-    objects = {new Slime(10,10,5), new Wall(300,100), new Wall(300,164), new Wall(300, 228), new Wall(236,228), new Wall(172, 228), new Wall(108,228)};
-    controlledObject = (MoveableObject*) objects[0];
 }
 
 void Window::loop() {
@@ -39,8 +37,6 @@ void Window::loop() {
 
         bool keyLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
         bool keyRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-//        bool keyUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
-//        bool keyDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
         moveObjectRel(controlledObject, (keyRight-keyLeft)*controlledObject->getSpeed(), 0);
         for(Object* object : objects){
             if (object->isMoveable()){
@@ -85,49 +81,12 @@ Object *Window::moveObjectRel(Object *object, float x, float y) {
     while(std::abs(a) < std::abs(x) || std::abs(b) < std::abs(y)){
         Object* obj = moveObject(object, object->getPosition().x+dx, object->getPosition().y+dy);
         if (obj){
-            object->moveRel(-dx, -dy);
             return obj;
         }
-        a += dx;
-        b += dy;
+        a += dx     ;
+             b += dy;
     }
     return nullptr;
-}
-
-Object *Window::moveObjectDir(MoveableObject *object, unsigned int direction) {
-    if(object->hasGravity()){
-        switch (direction) {
-            case 0 : // move Up
-                object->setImpulse({0,-3});
-                break;
-            case 1: // move Right
-                object->setImpulse({3,0});
-                break;
-            case 2 : // move Down
-                object->setImpulse({0,3});
-                break;
-            case 3 : // move Left
-                object->setImpulse({-3,0});
-                break;
-            default:
-                break;
-        }
-        return nullptr;
-    }
-    else {
-        switch (direction) {
-            case 0 : // move Up
-                return moveObjectRel(object, 0, -object->getSpeed());
-            case 1: // move Right
-                return moveObjectRel(object, object->getSpeed(), 0);
-            case 2 : // move Down
-                return moveObjectRel(object, 0, object->getSpeed());
-            case 3 : // move Left
-                return moveObjectRel(object, -object->getSpeed(), 0);
-            default:
-                return nullptr;
-        }
-    }
 }
 
 Object *Window::moveObjectTick(MoveableObject *object) {
@@ -140,4 +99,15 @@ Object *Window::objectAt(sf::Vector2f position) {
             return object;
     }
     return nullptr;
+}
+
+void Window::loadRoom(Room &room) {
+    objects = room.getObjects();
+    window->close();
+    window->create(sf::VideoMode(room.size().x, room.size().y), "TEST");
+    window->setFramerateLimit(60);
+    for(Object* obj: objects){
+        if (obj->isMoveable())
+            controlledObject = (MoveableObject*) obj;
+    }
 }

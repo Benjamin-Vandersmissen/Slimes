@@ -44,3 +44,7 @@ bool Slime::collision(Object &object) {
         return retValue;
     }
 }
+
+Object *Slime::clone() {
+    return new Slime(0, 0, speed);
+}

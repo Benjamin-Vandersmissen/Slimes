@@ -45,6 +45,8 @@ public:
     bool containsPoint(sf::Vector2f point);
 
     sf::FloatRect bounds();
+
+    virtual Object* clone() = 0;
 };
 
 

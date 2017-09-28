@@ -19,3 +19,7 @@ Wall::Wall(float x, float y) : Object(x, y) {
 std::string Wall::getType() {
     return "Wall";
 }
+
+Object *Wall::clone() {
+    return new Wall(position.x, position.y);
+}
