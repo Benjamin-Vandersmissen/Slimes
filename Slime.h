@@ -7,11 +7,14 @@
 
 #include "SFML/Window.hpp"
 #include "MoveableObject.h"
+#include "Projectile.h"
+#include "Window.h"
 
 class Slime : public MoveableObject
 {
 private:
     static sf::Texture* texture;
+    int facing = 1;
 public:
 
     Slime(float x, float y, int speed);
@@ -21,6 +24,10 @@ public:
     bool collision(Object& object);
 
     Object* clone();
+
+    void keyPressed(sf::Keyboard::Key key);
+
+    void keyboard();
 };
 
 

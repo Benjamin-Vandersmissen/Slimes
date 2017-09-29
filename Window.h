@@ -8,17 +8,18 @@
 #include "SFML/Graphics.hpp"
 #include "MoveableObject.h"
 #include "Room.h"
-
+#include <algorithm>
 class Window {
 private:
     sf::RenderWindow* window;
     std::vector<Object*> objects;
-    MoveableObject* controlledObject;
     float gravity = 0.3;
 public:
     Window(unsigned int w, unsigned int h);
 
     void loop();
+
+    void addObject(Object* object);
 
     /**
      * Will try to move an object to a specified location
@@ -33,6 +34,8 @@ public:
     Object* objectAt(sf::Vector2f position);
 
     void loadRoom(Room &room);
+
+    void applyGravity(MoveableObject *object);
 };
 
 

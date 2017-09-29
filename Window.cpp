@@ -13,6 +13,8 @@ Window::Window(unsigned int w, unsigned int h) {
 void Window::loop() {
     while (window->isOpen())
     {
+        if (!window->hasFocus())
+            continue;
         sf::Event event;
         while (window->pollEvent(event))
         {
@@ -26,32 +28,33 @@ void Window::loop() {
 
                 case sf::Event::KeyPressed:
                 {
-                    if (event.key.code == sf::Keyboard::Space){
-                        controlledObject->setImpulse({0,-10});
+                    int size = objects.size();
+                    for(int i = 0; i < size; i++){
+                        Object* object = objects[i];
+                        object->keyPressed(event.key.code);
                     }
                 }
                 default:
                     break;
             }
         }
-
-        bool keyLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
-        bool keyRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
-        moveObjectRel(controlledObject, (keyRight-keyLeft)*controlledObject->getSpeed(), 0);
         for(Object* object : objects){
+            object->keyboard();
             if (object->isMoveable()){
                 MoveableObject* movObject = (MoveableObject*) object;
-                if (movObject->hasGravity()) {
-                    bool hasSupport = objectAt({movObject->bounds().left, movObject->bounds().top+movObject->bounds().height+1}) != NULL; //Support bottom left
-                    hasSupport |= objectAt({movObject->bounds().left+movObject->bounds().width-1, movObject->bounds().top+movObject->bounds().height+1}) != NULL;//suport bottom right
-                    if (!hasSupport) {
-                        movObject->applyImpulse({0, gravity});
-                    }
-                    moveObjectTick(movObject);
-                }
+                applyGravity(movObject);
             }
         }
         window->clear();
+        for(auto it = objects.begin(); it != objects.end(); ){
+            if((*it)->markedForDeletion()){
+                delete *it;
+                it = objects.erase(it);
+            }
+            else{
+                ++it;
+            }
+        }
         for(Object* object : objects)
         {
             object->draw(*window);
@@ -107,7 +110,21 @@ void Window::loadRoom(Room &room) {
     window->create(sf::VideoMode(room.size().x, room.size().y), "TEST");
     window->setFramerateLimit(60);
     for(Object* obj: objects){
-        if (obj->isMoveable())
-            controlledObject = (MoveableObject*) obj;
+        obj->window = this;
+    }
+}
+
+void Window::addObject(Object *object) {
+    objects.push_back(object);
+}
+
+void Window::applyGravity(MoveableObject *object) {
+    if (object->hasGravity()) {
+        bool hasSupport = objectAt({object->bounds().left, object->bounds().top+object->bounds().height+1}) != NULL; //Support bottom left
+        hasSupport |= objectAt({object->bounds().left+object->bounds().width-1, object->bounds().top+object->bounds().height+1}) != NULL;//suport bottom right
+        if (!hasSupport) {
+            object->applyImpulse({0, gravity});
+        }
+        moveObjectTick(object);
     }
 }

@@ -29,6 +29,8 @@ void Object::moveRel(float x, float y) {
 }
 
 bool Object::collision(Object &object) {
+    if (&object == this)
+        return false;
     return (object._sprite.getGlobalBounds().intersects(_sprite.getGlobalBounds()));
 }
 
@@ -49,6 +51,8 @@ sf::FloatRect Object::bounds() {
 }
 
 bool Object::collision(Object &object, sf::FloatRect &ret) {
+    if(&object == this)
+        return false;
     return (object._sprite.getGlobalBounds().intersects(_sprite.getGlobalBounds(), ret));
 }
 
@@ -90,3 +94,23 @@ bool Object::collisionDown(Object &object) {
         return retValue;
     }
     return false;}
+
+void Object::keyPressed(sf::Keyboard::Key key) {
+
+}
+
+void Object::keyReleased(sf::Keyboard::Key key) {
+
+}
+
+void Object::keyboard() {
+
+}
+
+void Object::markForDeletion() {
+    _delete = true;
+}
+
+bool Object::markedForDeletion() {
+    return _delete;
+}
