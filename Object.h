@@ -14,10 +14,15 @@ protected:
     sf::Sprite _sprite;
     sf::Vector2f position;
     bool _delete = false;
+    int speed;
+    bool gravity = false;
+    sf::Vector2f direction = {0,0};
 public:
     Window* window = nullptr;
 
     Object(float x, float y);
+
+    Object(float x, float y, int speed);
 
     virtual std::string getType() = 0;
 
@@ -61,6 +66,15 @@ public:
 
     bool markedForDeletion();
 
+    int getSpeed() const;
+
+    bool hasGravity();
+
+    void applyImpulse(sf::Vector2f impulse);
+
+    void setImpulse(sf::Vector2f impulse);
+
+    const sf::Vector2f &getDirection() const;
 };
 
 

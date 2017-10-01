@@ -6,7 +6,6 @@
 #define SLIMES_WINDOW_H
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
-#include "MoveableObject.h"
 #include "Room.h"
 #include <algorithm>
 class Window {
@@ -29,13 +28,13 @@ public:
 
     Object* moveObjectRel(Object* object, float x, float y);
 
-    Object* moveObjectTick(MoveableObject* object);
+    Object* moveObjectTick(Object *object);
 
     Object* objectAt(sf::Vector2f position);
 
     void loadRoom(Room &room);
 
-    void applyGravity(MoveableObject *object);
+    void applyGravity(Object *object);
 };
 
 

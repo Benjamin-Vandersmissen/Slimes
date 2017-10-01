@@ -6,11 +6,11 @@
 #define SLIMES_SLIME_H
 
 #include "SFML/Window.hpp"
-#include "MoveableObject.h"
+#include "Object.h"
 #include "Projectile.h"
 #include "Window.h"
 
-class Slime : public MoveableObject
+class Slime : public Object
 {
 private:
     static sf::Texture* texture;

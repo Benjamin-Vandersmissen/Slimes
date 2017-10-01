@@ -5,9 +5,9 @@
 #ifndef SLIMES_PROJECTILE_H
 #define SLIMES_PROJECTILE_H
 
-#include "MoveableObject.h"
+#include "Object.h"
 
-class Projectile : public MoveableObject{
+class Projectile : public Object{
 private:
     Object* owner;
     static sf::Texture* texture;

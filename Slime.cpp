@@ -7,7 +7,7 @@
 
 sf::Texture* Slime::texture = nullptr;
 
-Slime::Slime(float x, float y, int speed) : MoveableObject(x, y, speed)
+Slime::Slime(float x, float y, int speed) : Object(x, y, speed)
 {
     if(!texture){
         texture = new sf::Texture;

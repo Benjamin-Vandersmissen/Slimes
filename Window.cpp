@@ -40,9 +40,8 @@ void Window::loop() {
         }
         for(Object* object : objects){
             object->keyboard();
-            if (object->isMoveable()){
-                MoveableObject* movObject = (MoveableObject*) object;
-                applyGravity(movObject);
+            if (object->hasGravity()){
+                applyGravity(object);
             }
         }
         window->clear();
@@ -92,7 +91,7 @@ Object *Window::moveObjectRel(Object *object, float x, float y) {
     return nullptr;
 }
 
-Object *Window::moveObjectTick(MoveableObject *object) {
+Object *Window::moveObjectTick(Object *object) {
     return moveObjectRel(object, object->getDirection().x, object->getDirection().y);
 }
 
@@ -118,7 +117,7 @@ void Window::addObject(Object *object) {
     objects.push_back(object);
 }
 
-void Window::applyGravity(MoveableObject *object) {
+void Window::applyGravity(Object *object) {
     if (object->hasGravity()) {
         bool hasSupport = objectAt({object->bounds().left, object->bounds().top+object->bounds().height+1}) != NULL; //Support bottom left
         hasSupport |= objectAt({object->bounds().left+object->bounds().width-1, object->bounds().top+object->bounds().height+1}) != NULL;//suport bottom right

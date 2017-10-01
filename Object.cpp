@@ -18,6 +18,10 @@ Object::Object(float x, float y) : position({x,y}){
 
 }
 
+Object::Object(float x, float y, int speed) : position({x,y}), speed(speed){
+ gravity = true;
+}
+
 void Object::move(float x, float y) {
     position.x = x;
     position.y = y;
@@ -114,3 +118,24 @@ void Object::markForDeletion() {
 bool Object::markedForDeletion() {
     return _delete;
 }
+
+int Object::getSpeed() const {
+    return speed;
+}
+
+bool Object::hasGravity() {
+    return gravity;
+}
+
+void Object::applyImpulse(sf::Vector2f impulse) {
+    direction += impulse;
+}
+
+void Object::setImpulse(sf::Vector2f impulse) {
+    direction = impulse;
+}
+
+const sf::Vector2f &Object::getDirection() const {
+    return direction;
+}
+
