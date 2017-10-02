@@ -14,9 +14,7 @@ Projectile::Projectile(float x, float y, Object* owner) : Object(x, y, 0), owner
     }
     gravity = true;
 
-    sf::Sprite sprite1;
-    sprite1.setTexture(*texture);
-    sprite(sprite1);
+    _sprite.setTexture(*texture);
 }
 
 std::string Projectile::getType() {
