@@ -8,6 +8,8 @@
 #include <map>
 #include "Object.h"
 
+class Object;
+
 class Room {
 private:
     unsigned int width, height, rastersize;

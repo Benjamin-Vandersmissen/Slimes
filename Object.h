@@ -7,6 +7,7 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "Window.h"
 class Window;
 
 class Object {
@@ -19,6 +20,8 @@ protected:
     sf::Vector2f direction = {0,0};
 public:
     Window* window = nullptr;
+
+    Object();
 
     Object(float x, float y);
 

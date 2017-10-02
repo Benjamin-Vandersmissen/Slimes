@@ -139,3 +139,8 @@ const sf::Vector2f &Object::getDirection() const {
     return direction;
 }
 
+Object::Object() {
+    position = {0,0};
+    speed = 0;
+}
+

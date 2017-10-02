@@ -8,6 +8,8 @@
 #include "SFML/Graphics.hpp"
 #include "Room.h"
 #include <algorithm>
+class Object;
+class Room;
 class Window {
 private:
     sf::RenderWindow* window;

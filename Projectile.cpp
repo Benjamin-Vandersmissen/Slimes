@@ -7,7 +7,7 @@
 
 sf::Texture* Projectile::texture = nullptr;
 
-Projectile::Projectile(float x, float y, Object* owner) : Object(x, y, 0), owner(owner) {
+Projectile::Projectile(float x, float y, ControllableObject *owner) : Object(x, y, 0), owner(owner) {
     if(!texture){
         texture = new sf::Texture;
         texture->loadFromFile("projectile.png");

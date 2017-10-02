@@ -6,15 +6,13 @@
 #define SLIMES_SLIME_H
 
 #include "SFML/Window.hpp"
-#include "Object.h"
+#include "ControllableObject.h"
 #include "Projectile.h"
-#include "Window.h"
 
-class Slime : public Object
+class Slime : public ControllableObject
 {
 private:
     static sf::Texture* texture;
-    int facing = 1;
 public:
 
     Slime(float x, float y, int speed);

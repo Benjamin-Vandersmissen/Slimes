@@ -6,13 +6,14 @@
 #define SLIMES_PROJECTILE_H
 
 #include "Object.h"
-
+#include "ControllableObject.h"
+class ControllableObject;
 class Projectile : public Object{
 private:
-    Object* owner;
+    ControllableObject* owner;
     static sf::Texture* texture;
 public:
-    Projectile(float x, float y, Object* owner);
+    Projectile(float x, float y, ControllableObject *owner);
 
     std::string getType();
 
