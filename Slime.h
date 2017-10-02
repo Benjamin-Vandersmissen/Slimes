@@ -23,9 +23,6 @@ public:
 
     Object* clone();
 
-    void keyPressed(sf::Keyboard::Key key);
-
-    void keyboard();
 };
 
 

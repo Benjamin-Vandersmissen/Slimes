@@ -6,11 +6,13 @@
 
 sf::Texture* Person::texture = NULL;
 
-Person::Person(float x, float y, int speed) : Object(x, y, speed) {
+Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
+    controlled = true;
     if(!texture){
         texture = new sf::Texture;
-        texture->loadFromFile("./person.png");
+        texture->loadFromFile("./player.png");
     }
+    _sprite.setTexture(*texture);
     gravity = true;
 
 }
@@ -20,7 +22,13 @@ std::string Person::getType() {
 }
 
 bool Person::collision(Object &object) {
-    return Object::collision(object);
+    bool retValue = ControllableObject::collision(object);
+    if(retValue){
+        if(Object::collisionDown(object)){
+            this->direction.y = 0;
+        }
+    }
+    return retValue;
 }
 
 Object *Person::clone() {

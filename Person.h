@@ -5,10 +5,9 @@
 #ifndef SLIMES_PERSON_H
 #define SLIMES_PERSON_H
 
-#include "Object.h"
-class Person : public Object{
+#include "ControllableObject.h"
+class Person : public ControllableObject{
 protected:
-    bool controlled = true;
     static sf::Texture* texture;
 public:
     Person(float x, float y, int speed);

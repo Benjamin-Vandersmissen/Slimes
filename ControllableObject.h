@@ -13,8 +13,10 @@ class ControllableObject : public Object{
 protected:
     bool controlled = false;
     int facing = 1;
+    int maxNrJumps = 3;
+    int nrJumps = maxNrJumps;
 public:
-    ControllableObject(int x, int y, int speed);
+    ControllableObject(float x, float y, int speed);
 
     void keyPressed(sf::Keyboard::Key key);
 
@@ -22,6 +24,9 @@ public:
 
     bool isControlled();
 
+    void toggleControlled();
+
+    virtual bool collision(Object& object);
 };
 
 

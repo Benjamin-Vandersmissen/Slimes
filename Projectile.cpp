@@ -30,6 +30,13 @@ bool Projectile::collision(Object &object) {
         return false;
     bool retValue = Object::collision(object);
     if(retValue){
+        if(object.getType() == "Slime" || object.getType() == "Person"){
+            if(owner->isControlled()){
+                ControllableObject* obj = (ControllableObject*) &object;
+                obj->toggleControlled();
+                owner->toggleControlled();
+            }
+        }
         markForDeletion();
     }
     return retValue;
