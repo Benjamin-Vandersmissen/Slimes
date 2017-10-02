@@ -30,7 +30,7 @@ bool Projectile::collision(Object &object) {
         return false;
     bool retValue = Object::collision(object);
     if(retValue){
-        if(object.getType() == "Slime" || object.getType() == "Person"){
+        if(object.getType() == "Slime" || object.getType() == "Person" || object.getType() == "ClimbSlime"){
             if(owner->isControlled()){
                 ControllableObject* obj = (ControllableObject*) &object;
                 obj->toggleControlled();

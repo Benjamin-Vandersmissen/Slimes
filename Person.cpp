@@ -22,6 +22,8 @@ std::string Person::getType() {
 }
 
 bool Person::collision(Object &object) {
+    if(object.getType() == "Slime" || object.getType() == "ClimbSlime")
+        return false;
     bool retValue = ControllableObject::collision(object);
     if(retValue){
         if(Object::collisionDown(object)){

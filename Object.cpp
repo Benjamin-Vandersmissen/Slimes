@@ -144,3 +144,7 @@ Object::Object() {
     speed = 0;
 }
 
+void Object::step() {
+
+}
+

@@ -40,6 +40,7 @@ void Window::loop() {
         }
         for(Object* object : objects){
             object->keyboard();
+            object->step();
             if (object->hasGravity()){
                 applyGravity(object);
             }

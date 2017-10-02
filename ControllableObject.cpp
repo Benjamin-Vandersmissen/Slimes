@@ -16,7 +16,7 @@ void ControllableObject::keyPressed(sf::Keyboard::Key key) {
     if (key == sf::Keyboard::LShift){
         Projectile* projectile = new Projectile(position.x, position.y, this);
         window->addObject(projectile);
-        projectile->setImpulse({facing*20,0});
+        projectile->setImpulse({facing*20.0f,0});
     }
 }
 

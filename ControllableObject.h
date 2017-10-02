@@ -18,9 +18,9 @@ protected:
 public:
     ControllableObject(float x, float y, int speed);
 
-    void keyPressed(sf::Keyboard::Key key);
+    virtual void keyPressed(sf::Keyboard::Key key);
 
-    void keyboard();
+    virtual void keyboard();
 
     bool isControlled();
 

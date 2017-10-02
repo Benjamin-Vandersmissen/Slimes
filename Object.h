@@ -65,6 +65,8 @@ public:
 
     virtual void keyboard();
 
+    virtual void step();
+
     void markForDeletion();
 
     bool markedForDeletion();
