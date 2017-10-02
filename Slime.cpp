@@ -14,10 +14,7 @@ Slime::Slime(float x, float y, int speed) : ControllableObject(x, y, speed)
         texture->loadFromFile("./slime.png");
     }
     gravity = true;
-
-    sf::Sprite sprite1;
-    sprite1.setTexture(*texture);
-    sprite(sprite1);
+    _sprite.setTexture(*texture);
 }
 
 std::string Slime::getType() {

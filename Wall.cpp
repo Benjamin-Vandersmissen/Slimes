@@ -11,9 +11,7 @@ Wall::Wall(float x, float y) : Object(x, y) {
         texture = new sf::Texture;
         texture->loadFromFile("Wall.png");
     }
-    sf::Sprite sprite1;
-    sprite1.setTexture(*texture);
-    sprite(sprite1);
+    _sprite.setTexture(*texture);
 }
 
 std::string Wall::getType() {

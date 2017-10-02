@@ -12,7 +12,7 @@ class Window;
 
 class Object {
 protected:
-    sf::Sprite _sprite;
+    sf::Sprite _sprite = sf::Sprite();
     sf::Vector2f position;
     bool _delete = false;
     int speed;
