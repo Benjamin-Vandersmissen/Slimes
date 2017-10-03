@@ -80,6 +80,8 @@ public:
     void setImpulse(sf::Vector2f impulse);
 
     const sf::Vector2f &getDirection() const;
+
+    virtual bool wouldCollide(Object& object);
 };
 
 

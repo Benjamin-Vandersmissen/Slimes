@@ -6,7 +6,7 @@
 #include "Window.h"
 
 Window::Window(unsigned int w, unsigned int h) {
-    window = new sf::RenderWindow(sf::VideoMode(w,h), "TEST");
+    window = new sf::RenderWindow(sf::VideoMode(w,h), "Slimes BETA V0.00000001");
     window->setFramerateLimit(60);
 }
 
@@ -107,7 +107,7 @@ Object *Window::objectAt(sf::Vector2f position) {
 void Window::loadRoom(Room &room) {
     objects = room.getObjects();
     window->close();
-    window->create(sf::VideoMode(room.size().x, room.size().y), "TEST");
+    window->create(sf::VideoMode(room.size().x, room.size().y), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
     for(Object* obj: objects){
         obj->window = this;
@@ -120,8 +120,10 @@ void Window::addObject(Object *object) {
 
 void Window::applyGravity(Object *object) {
     if (object->hasGravity()) {
-        bool hasSupport = objectAt({object->bounds().left, object->bounds().top+object->bounds().height+1}) != NULL; //Support bottom left
-        hasSupport |= objectAt({object->bounds().left+object->bounds().width-1, object->bounds().top+object->bounds().height+1}) != NULL;//suport bottom right
+        Object* bottomLeft = objectAt({object->bounds().left, object->bounds().top+object->bounds().height+1}); //Support bottom left
+        bool hasSupport;
+        Object* bottomRight = objectAt({object->bounds().left+object->bounds().width-1, object->bounds().top+object->bounds().height+1});//support bottom right
+        hasSupport = (bottomLeft == NULL ? false : object->wouldCollide(*bottomLeft) ) || (bottomRight == NULL ? false : object->wouldCollide(*bottomRight));
         if (!hasSupport) {
             object->applyImpulse({0, gravity});
         }

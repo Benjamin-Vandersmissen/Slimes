@@ -2,6 +2,7 @@
 // Created by benji on 02.10.17.
 //
 
+#include <iostream>
 #include "ControllableObject.h"
 
 void ControllableObject::keyPressed(sf::Keyboard::Key key) {
@@ -62,4 +63,12 @@ void ControllableObject::toggleControlled() {
         controlled = true;
         _sprite.setColor({255,255,255});
     }
+}
+
+bool ControllableObject::wouldCollide(Object &object) {
+    std::vector<std::string> types = {"Slime", "ClimbSlime", "Person"};
+    if(std::find(types.begin(), types.end(), object.getType()) != types.end()){
+        return false;
+    }
+    return true;
 }

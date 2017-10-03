@@ -148,3 +148,7 @@ void Object::step() {
 
 }
 
+bool Object::wouldCollide(Object &object) {
+    return true;
+}
+

@@ -27,6 +27,8 @@ public:
     void toggleControlled();
 
     virtual bool collision(Object& object);
+
+    virtual bool wouldCollide(Object& object);
 };
 
 

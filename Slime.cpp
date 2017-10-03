@@ -23,7 +23,7 @@ std::string Slime::getType() {
 
 bool Slime::collision(Object &object) {
     bool retValue = ControllableObject::collision(object);
-    if (object.getType() == "Slime" || object.getType() == "Person"){
+    if (!wouldCollide(object)){
         //Collision with another slime => slimes will pass through each other
         return false;
     }
