@@ -33,10 +33,14 @@ void Object::moveRel(float x, float y) {
     move(position.x + x, position.y+y);
 }
 
+bool Object::collision(sf::FloatRect boundingBox) {
+    return _sprite.getGlobalBounds().intersects(boundingBox);
+}
+
 bool Object::collision(Object &object) {
     if (&object == this)
         return false;
-    return (object._sprite.getGlobalBounds().intersects(_sprite.getGlobalBounds()));
+    return collision(object._sprite.getGlobalBounds());
 }
 
 const sf::Vector2f &Object::getPosition() const {

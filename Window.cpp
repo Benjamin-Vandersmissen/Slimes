@@ -97,11 +97,20 @@ Object *Window::moveObjectTick(Object *object) {
 }
 
 Object *Window::objectAt(sf::Vector2f position) {
-    for(Object* object : objects){
-        if (object->containsPoint(position))
+    for(Object* object: objects){
+        if(object->containsPoint(position))
             return object;
     }
     return nullptr;
+}
+
+std::vector<Object *> Window::objectsAt(sf::Vector2f position) {
+    std::vector<Object*> temp;
+    for(Object* object : objects){
+        if (object->containsPoint(position))
+            temp.push_back(object);
+    }
+    return temp;
 }
 
 void Window::loadRoom(Room &room) {
@@ -132,3 +141,13 @@ void Window::applyGravity(Object *object) {
         moveObjectTick(object);
     }
 }
+
+std::vector<Object *> Window::objectsAt(sf::FloatRect boundingBox) {
+    std::vector<Object*> temp;
+    for(Object* object : objects){
+        if(object->collision(boundingBox))
+            temp.push_back(object);
+    }
+    return temp;
+}
+

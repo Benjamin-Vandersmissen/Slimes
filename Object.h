@@ -37,6 +37,8 @@ public:
 
     void moveRel(float x, float y);
 
+    bool collision(sf::FloatRect boundingBox);
+
     virtual bool collision(Object& object);
 
     bool collision(Object& object, sf::FloatRect& ret);

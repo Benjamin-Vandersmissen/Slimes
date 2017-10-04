@@ -34,6 +34,10 @@ public:
 
     Object* objectAt(sf::Vector2f position);
 
+    std::vector<Object*> objectsAt(sf::Vector2f position);
+
+    std::vector<Object*> objectsAt(sf::FloatRect boundingBox);
+
     void loadRoom(Room &room);
 
     void applyGravity(Object *object);
