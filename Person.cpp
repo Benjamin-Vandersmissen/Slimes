@@ -28,7 +28,7 @@ bool Person::collision(Object &object) {
         return false;
     bool retValue = ControllableObject::collision(object);
     if(retValue){
-        if(Object::collisionDown(object)){
+        if(Object::collisionDown(object) || Object::collisionUp(object)){
             this->direction.y = 0;
         }
     }
