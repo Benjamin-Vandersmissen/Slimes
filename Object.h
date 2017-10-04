@@ -82,6 +82,8 @@ public:
     const sf::Vector2f &getDirection() const;
 
     virtual bool wouldCollide(Object& object);
+
+    sf::FloatRect getSize();
 };
 
 

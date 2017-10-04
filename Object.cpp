@@ -18,8 +18,9 @@ Object::Object(float x, float y) : position({x,y}){
 
 }
 
-Object::Object(float x, float y, int speed) : position({x,y}), speed(speed){
- gravity = true;
+Object::Object(float x, float y, int speed) : speed(speed){
+    gravity = true;
+    move(x,y);
 }
 
 void Object::move(float x, float y) {
@@ -150,5 +151,9 @@ void Object::step() {
 
 bool Object::wouldCollide(Object &object) {
     return true;
+}
+
+sf::FloatRect Object::getSize() {
+    return _sprite.getLocalBounds();
 }
 

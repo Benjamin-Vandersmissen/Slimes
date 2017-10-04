@@ -3,6 +3,7 @@
 #include "Wall.h"
 #include "Person.h"
 #include "ClimbSlime.h"
+#include "WallSlime.h"
 
 int main()
 {
@@ -12,6 +13,7 @@ int main()
     room.allocateObject(new Wall(0,0));
     room.allocateObject(new Person(0,0,5));
     room.allocateObject(new ClimbSlime(0,0,5));
+    room.allocateObject(new WallSlime(0,0,3));
     int objects[] = {
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
@@ -24,7 +26,7 @@ int main()
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
-            2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 0, 0, 0, 2,
+            2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 5, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2,
             2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,

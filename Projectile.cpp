@@ -30,11 +30,16 @@ bool Projectile::collision(Object &object) {
         return false;
     bool retValue = Object::collision(object);
     if(retValue){
-        if(object.getType() == "Slime" || object.getType() == "Person" || object.getType() == "ClimbSlime"){
+        std::vector<std::string> objectNames = {"Slime", "Person", "ClimbSlime", "WallSlime"};
+        if(std::find(objectNames.begin(), objectNames.end(), object.getType()) != objectNames.end()){
             if(owner->isControlled()){
                 ControllableObject* obj = (ControllableObject*) &object;
                 obj->toggleControlled();
                 owner->toggleControlled();
+                if(owner->getType() == "WallSlime" && window->objectAt(position) != owner){
+                    owner->markForDeletion();
+                    window->addObject(new Wall(owner->getPosition().x, owner->getPosition().y));
+                }
             }
         }
         markForDeletion();

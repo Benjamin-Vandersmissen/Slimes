@@ -15,7 +15,7 @@ void ControllableObject::keyPressed(sf::Keyboard::Key key) {
         }
     }
     if (key == sf::Keyboard::LShift){
-        Projectile* projectile = new Projectile(position.x, position.y, this);
+        Projectile* projectile = new Projectile(position.x+getSize().width/2, position.y+getSize().height/2, this);
         window->addObject(projectile);
         projectile->setImpulse({facing*20.0f,0});
     }
@@ -66,7 +66,7 @@ void ControllableObject::toggleControlled() {
 }
 
 bool ControllableObject::wouldCollide(Object &object) {
-    std::vector<std::string> types = {"Slime", "ClimbSlime", "Person"};
+    std::vector<std::string> types = {"Slime", "ClimbSlime", "Person", "WallSlime"};
     if(std::find(types.begin(), types.end(), object.getType()) != types.end()){
         return false;
     }

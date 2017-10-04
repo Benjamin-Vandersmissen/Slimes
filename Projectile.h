@@ -7,6 +7,7 @@
 
 #include "Object.h"
 #include "ControllableObject.h"
+#include "Wall.h"
 class ControllableObject;
 class Projectile : public Object{
 private:

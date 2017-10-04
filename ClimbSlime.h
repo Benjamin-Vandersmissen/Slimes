@@ -15,8 +15,6 @@ protected:
 public:
     ClimbSlime(float x, float y, int speed);
 
-    void keyPressed(sf::Keyboard::Key key);
-
     void keyboard();
 
     Object* clone();

@@ -8,19 +8,13 @@
 sf::Texture* ClimbSlime::texture = nullptr;
 
 ClimbSlime::ClimbSlime(float x, float y, int speed) : Slime(x, y, speed) {
+    maxNrJumps = 0;
+    nrJumps = maxNrJumps;
     if(!texture){
         texture = new sf::Texture;
         texture->loadFromFile("./climbSlime.png");
     }
     _sprite.setTexture(*texture);
-}
-
-void ClimbSlime::keyPressed(sf::Keyboard::Key key) {
-    if(!controlled)
-        return;
-    if(key == sf::Keyboard::LShift){
-        ControllableObject::keyPressed(key);
-    }
 }
 
 void ClimbSlime::keyboard() {

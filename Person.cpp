@@ -8,6 +8,8 @@ sf::Texture* Person::texture = NULL;
 
 Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
     controlled = true;
+    maxNrJumps = 1;
+    nrJumps = maxNrJumps;
     if(!texture){
         texture = new sf::Texture;
         texture->loadFromFile("./player.png");
@@ -22,7 +24,7 @@ std::string Person::getType() {
 }
 
 bool Person::collision(Object &object) {
-    if(object.getType() == "Slime" || object.getType() == "ClimbSlime")
+    if(!wouldCollide(object))
         return false;
     bool retValue = ControllableObject::collision(object);
     if(retValue){

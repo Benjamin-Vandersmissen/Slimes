@@ -116,6 +116,8 @@ void Window::loadRoom(Room &room) {
 
 void Window::addObject(Object *object) {
     objects.push_back(object);
+    object->move(object->getPosition().x, object->getPosition().y); //Move the sprite to the right position
+    object->window = this;
 }
 
 void Window::applyGravity(Object *object) {
