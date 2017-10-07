@@ -2,6 +2,7 @@
 // Created by benji on 28.09.17.
 //
 
+#include <iostream>
 #include "Room.h"
 
 Room::Room(unsigned int width, unsigned int height, unsigned int rastersize) : width(width), height(height), rastersize(rastersize) {}
@@ -28,8 +29,12 @@ void Room::populateObjects(int *array) {
     }
 }
 
-const std::vector<Object *> &Room::getObjects() const {
-    return objects;
+const std::vector<Object *> Room::getObjects() const {
+    std::vector<Object*> temp;
+    for(Object* obj: objects){
+        temp.push_back(obj->clone());
+    }
+    return temp;
 }
 
 sf::Vector2u Room::size() const {

@@ -13,8 +13,7 @@ Projectile::Projectile(float x, float y, ControllableObject *owner) : Object(x, 
         texture->loadFromFile("projectile.png");
     }
     gravity = true;
-
-    _sprite.setTexture(*texture);
+    completeInit(texture);
 }
 
 std::string Projectile::getType() {

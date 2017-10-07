@@ -28,6 +28,8 @@ void Window::loop() {
 
                 case sf::Event::KeyPressed:
                 {
+                    if(event.key.code == sf::Keyboard::R)
+                        reloadRoom();
                     int size = objects.size();
                     for(int i = 0; i < size; i++){
                         Object* object = objects[i];
@@ -114,13 +116,11 @@ std::vector<Object *> Window::objectsAt(sf::Vector2f position) {
 }
 
 void Window::loadRoom(Room &room) {
-    objects = room.getObjects();
+    this->room = &room;
     window->close();
     window->create(sf::VideoMode(room.size().x, room.size().y), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
-    for(Object* obj: objects){
-        obj->window = this;
-    }
+    reloadRoom();
 }
 
 void Window::addObject(Object *object) {
@@ -149,5 +149,15 @@ std::vector<Object *> Window::objectsAt(sf::FloatRect boundingBox) {
             temp.push_back(object);
     }
     return temp;
+}
+
+void Window::reloadRoom() {
+    for(Object* object : objects){
+        delete object;
+    }
+    objects = room->getObjects();
+    for(Object* obj: objects){
+        obj->window = this;
+    }
 }
 

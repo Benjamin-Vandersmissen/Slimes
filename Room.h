@@ -24,7 +24,7 @@ public:
 
     void populateObjects(int* array);
 
-    const std::vector<Object *> &getObjects() const;
+    const std::vector<Object *> getObjects() const;
 
     sf::Vector2u size() const;
 };

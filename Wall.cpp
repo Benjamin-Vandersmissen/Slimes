@@ -12,6 +12,7 @@ Wall::Wall(float x, float y) : Object(x, y) {
         texture->loadFromFile("Wall.png");
     }
     _sprite.setTexture(*texture);
+    move(position.x,position.y);
 }
 
 std::string Wall::getType() {

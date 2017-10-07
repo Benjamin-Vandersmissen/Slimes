@@ -15,6 +15,7 @@ private:
     sf::RenderWindow* window;
     std::vector<Object*> objects;
     float gravity = 0.3;
+    Room* room = NULL;
 public:
     Window(unsigned int w, unsigned int h);
 
@@ -41,6 +42,8 @@ public:
     void loadRoom(Room &room);
 
     void applyGravity(Object *object);
+
+    void reloadRoom();
 };
 
 

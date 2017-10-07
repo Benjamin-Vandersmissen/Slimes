@@ -14,7 +14,7 @@ Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
         texture = new sf::Texture;
         texture->loadFromFile("./player.png");
     }
-    _sprite.setTexture(*texture);
+    completeInit(texture);
     gravity = true;
 
 }

@@ -27,6 +27,8 @@ public:
 
     Object(float x, float y, int speed);
 
+    void completeInit(sf::Texture *texture);
+
     virtual std::string getType() = 0;
 
     void sprite(sf::Sprite sprite);

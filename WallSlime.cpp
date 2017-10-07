@@ -11,10 +11,9 @@ WallSlime::WallSlime(float x, float y, int speed) : Slime(x, y, speed) {
     nrJumps = 1;
     if(!texture){
         texture = new sf::Texture;
-        //TODO: change texture to dedicated texture
-        texture->loadFromFile("./slime.png");
+        texture->loadFromFile("./wallSlime.png");
     }
-    _sprite.setTexture(*texture);
+    completeInit(texture);
 }
 
 Object *WallSlime::clone() {

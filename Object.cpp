@@ -161,3 +161,8 @@ sf::FloatRect Object::getSize() {
     return _sprite.getLocalBounds();
 }
 
+void Object::completeInit(sf::Texture *texture) {
+    _sprite.setTexture(*texture);
+    _sprite.setPosition(position.x, position.y);
+}
+

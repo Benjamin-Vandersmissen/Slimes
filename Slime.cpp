@@ -43,6 +43,6 @@ bool Slime::collision(Object &object) {
 }
 
 Object *Slime::clone() {
-    return new Slime(0, 0, speed);
+    return new Slime(position.x, position.y, speed);
 }
 
