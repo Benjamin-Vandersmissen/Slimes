@@ -17,6 +17,8 @@ private:
     std::map<int, Object*> allocatedObjects;
 
     std::vector<Object*> objects;
+
+    std::vector<sf::Sprite*> sprites;
 public:
     Room(unsigned int width, unsigned int height, unsigned int rastersize = 64);
 
@@ -27,6 +29,12 @@ public:
     const std::vector<Object *> getObjects() const;
 
     sf::Vector2u size() const;
+
+    void addObject(Object* object);
+
+    void setSprites(std::vector<sf::Sprite*> sprites);
+
+    const std::vector<sf::Sprite *> &getSprites() const;
 };
 
 

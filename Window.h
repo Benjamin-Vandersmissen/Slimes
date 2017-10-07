@@ -16,6 +16,7 @@ private:
     std::vector<Object*> objects;
     float gravity = 0.3;
     Room* room = NULL;
+    std::vector<sf::Sprite*> sprites;
 public:
     Window(unsigned int w, unsigned int h);
 

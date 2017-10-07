@@ -57,6 +57,9 @@ void Window::loop() {
                 ++it;
             }
         }
+        for(sf::Sprite* sprite : sprites){
+            window->draw(*sprite);
+        }
         for(Object* object : objects)
         {
             object->draw(*window);
@@ -120,6 +123,8 @@ void Window::loadRoom(Room &room) {
     window->close();
     window->create(sf::VideoMode(room.size().x, room.size().y), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
+    sprites = room.getSprites();
+    std::cout << sprites.size() << std::endl;
     reloadRoom();
 }
 

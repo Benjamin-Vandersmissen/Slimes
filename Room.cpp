@@ -40,3 +40,15 @@ const std::vector<Object *> Room::getObjects() const {
 sf::Vector2u Room::size() const {
     return sf::Vector2u(width, height);
 }
+
+void Room::addObject(Object *object) {
+    objects.push_back(object);
+}
+
+void Room::setSprites(std::vector<sf::Sprite *> sprites) {
+    this->sprites = sprites;
+}
+
+const std::vector<sf::Sprite *> &Room::getSprites() const {
+    return sprites;
+}
