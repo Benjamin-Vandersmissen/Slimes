@@ -10,7 +10,7 @@
 #include "Window.h"
 class Window;
 
-class Object {
+class Object : public sf::Drawable{
 protected:
     sf::Sprite _sprite = sf::Sprite();
     sf::Vector2f position;
@@ -32,8 +32,6 @@ public:
     virtual std::string getType() = 0;
 
     void sprite(sf::Sprite sprite);
-
-    void draw(sf::RenderWindow &window);
 
     void move(float x, float y);
 
@@ -88,6 +86,8 @@ public:
     virtual bool wouldCollide(Object& object);
 
     sf::FloatRect getSize();
+
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 

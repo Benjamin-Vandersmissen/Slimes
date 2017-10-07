@@ -10,7 +10,7 @@
 #include <algorithm>
 class Object;
 class Room;
-class Window {
+class Window : public sf::Drawable{
 private:
     sf::RenderWindow* window;
     std::vector<Object*> objects;
@@ -45,6 +45,9 @@ public:
     void applyGravity(Object *object);
 
     void reloadRoom();
+
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 };
 
 

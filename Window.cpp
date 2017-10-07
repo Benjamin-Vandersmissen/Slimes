@@ -57,13 +57,7 @@ void Window::loop() {
                 ++it;
             }
         }
-        for(sf::Sprite* sprite : sprites){
-            window->draw(*sprite);
-        }
-        for(Object* object : objects)
-        {
-            object->draw(*window);
-        }
+        window->draw(*this);
         window->display();
     }
 
@@ -124,7 +118,6 @@ void Window::loadRoom(Room &room) {
     window->create(sf::VideoMode(room.size().x, room.size().y), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
     sprites = room.getSprites();
-    std::cout << sprites.size() << std::endl;
     reloadRoom();
 }
 
@@ -163,6 +156,15 @@ void Window::reloadRoom() {
     objects = room->getObjects();
     for(Object* obj: objects){
         obj->window = this;
+    }
+}
+
+void Window::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    for(sf::Sprite* sprite : sprites){
+        target.draw(*sprite, states);
+    }
+    for(Object* object : objects){
+        target.draw(*object, states);
     }
 }
 

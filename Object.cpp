@@ -10,10 +10,6 @@ void Object::sprite(sf::Sprite sprite){
     this->_sprite.setPosition(position);
 }
 
-void Object::draw(sf::RenderWindow &window) {
-    window.draw(_sprite);
-}
-
 Object::Object(float x, float y) : position({x,y}){
 
 }
@@ -164,5 +160,9 @@ sf::FloatRect Object::getSize() {
 void Object::completeInit(sf::Texture *texture) {
     _sprite.setTexture(*texture);
     _sprite.setPosition(position.x, position.y);
+}
+
+void Object::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(_sprite, states);
 }
 
