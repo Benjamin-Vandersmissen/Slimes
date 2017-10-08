@@ -5,7 +5,7 @@
 #include "Person.h"
 #include "ClimbSlime.h"
 #include "WallSlime.h"
-
+#include "AnimatedSprite.h"
 int main()
 {
     Window window(500,500);
