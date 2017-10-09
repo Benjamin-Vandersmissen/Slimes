@@ -48,8 +48,11 @@ void Window::loop() {
             }
         }
         window->clear();
+        m_View->updateView();
         for(auto it = objects.begin(); it != objects.end(); ){
             if((*it)->markedForDeletion()){
+                if(m_View->followedObject() == *it)
+                    m_View->followObject(nullptr);
                 delete *it;
                 it = objects.erase(it);
             }
@@ -154,6 +157,8 @@ void Window::reloadRoom() {
         delete object;
     }
     objects = room->getObjects();
+    m_View = room->getView();
+    this->window->setView(*m_View);
     for(Object* obj: objects){
         obj->window = this;
     }

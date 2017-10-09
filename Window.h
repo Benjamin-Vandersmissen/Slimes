@@ -10,6 +10,7 @@
 #include <algorithm>
 class Object;
 class Room;
+class View;
 class Window : public sf::Drawable{
 private:
     sf::RenderWindow* window;
@@ -17,6 +18,7 @@ private:
     float gravity = 0.3;
     Room* room = NULL;
     std::vector<sf::Sprite*> sprites;
+    View* m_View = nullptr;
 public:
     Window(unsigned int w, unsigned int h);
 

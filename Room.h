@@ -7,8 +7,10 @@
 
 #include <map>
 #include "Object.h"
+#include "View.h"
 
 class Object;
+class View;
 
 class Room {
 private:
@@ -19,6 +21,10 @@ private:
     std::vector<Object*> objects;
 
     std::vector<sf::Sprite*> sprites;
+
+    View* m_View = nullptr;
+
+    View* m_View2 = nullptr;
 public:
     Room(unsigned int width, unsigned int height, unsigned int rastersize = 64);
 
@@ -26,7 +32,7 @@ public:
 
     void populateObjects(int* array);
 
-    const std::vector<Object *> getObjects() const;
+    const std::vector<Object *> getObjects();
 
     sf::Vector2u size() const;
 
@@ -35,6 +41,12 @@ public:
     void setSprites(std::vector<sf::Sprite*> sprites);
 
     const std::vector<sf::Sprite *> &getSprites() const;
+
+    void setView(float x, float y, float w, float h);
+
+    void setView(Object* object, float w, float h);
+
+    View *getView() const;
 };
 
 

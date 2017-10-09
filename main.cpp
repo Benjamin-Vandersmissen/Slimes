@@ -30,9 +30,12 @@ int main()
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 5, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2,
             2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
-            2, 0, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+            2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     };
+    Person* person = new Person(128,500, 5);
+    room.setView(person, 512,512);
+    room.addObject(person);
     sf::Texture* tiles = new sf::Texture;
     tiles->loadFromFile("tiles.png");
     Tileset tileset(tiles);
