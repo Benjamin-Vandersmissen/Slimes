@@ -6,65 +6,57 @@
 #include "Object.h"
 
 void Object::sprite(sf::Sprite sprite){
-    this->_sprite = sprite;
-    this->_sprite.setPosition(position);
+    this->m_Sprite = sprite;
+    this->m_Sprite.setPosition(m_Position);
 }
 
-Object::Object(float x, float y) : position({x,y}){
+Object::Object(float x, float y) : m_Position({x,y}){
 
 }
 
-Object::Object(float x, float y, int speed) : speed(speed){
-    gravity = true;
+Object::Object(float x, float y, int speed) : m_Speed(speed){
+    m_Gravity = true;
     move(x,y);
 }
 
 void Object::move(float x, float y) {
-    position.x = x;
-    position.y = y;
-    this->_sprite.setPosition(x,y);
-}
-
-void Object::moveRel(float x, float y) {
-    move(position.x + x, position.y+y);
+    m_Position.x = x;
+    m_Position.y = y;
+    this->m_Sprite.setPosition(x,y);
 }
 
 bool Object::collision(sf::FloatRect boundingBox) {
-    return _sprite.getGlobalBounds().intersects(boundingBox);
+    return m_Sprite.getGlobalBounds().intersects(boundingBox);
 }
 
 bool Object::collision(Object &object) {
     if (&object == this)
         return false;
-    return collision(object._sprite.getGlobalBounds());
+    return collision(object.m_Sprite.getGlobalBounds());
 }
 
 const sf::Vector2f &Object::getPosition() const {
-    return position;
-}
-
-bool Object::isMoveable() {
-    return false;
+    return m_Position;
 }
 
 bool Object::containsPoint(sf::Vector2f point) {
-    return _sprite.getGlobalBounds().contains(point);
+    return m_Sprite.getGlobalBounds().contains(point);
 }
 
 sf::FloatRect Object::bounds() {
-    return _sprite.getGlobalBounds();
+    return m_Sprite.getGlobalBounds();
 }
 
 bool Object::collision(Object &object, sf::FloatRect &ret) {
     if(&object == this)
         return false;
-    return (object._sprite.getGlobalBounds().intersects(_sprite.getGlobalBounds(), ret));
+    return (object.m_Sprite.getGlobalBounds().intersects(m_Sprite.getGlobalBounds(), ret));
 }
 
 bool Object::collisionRight(Object &object) {
     sf::FloatRect overlap;
     if(collision(object, overlap)){
-        bool retValue = overlap.left + overlap.width == _sprite.getGlobalBounds().left + _sprite.getGlobalBounds().width ;
+        bool retValue = overlap.left + overlap.width == m_Sprite.getGlobalBounds().left + m_Sprite.getGlobalBounds().width ;
         retValue &= overlap.height > 1;
         return retValue;
     }
@@ -74,7 +66,7 @@ bool Object::collisionRight(Object &object) {
 bool Object::collisionLeft(Object &object) {
     sf::FloatRect overlap;
     if(collision(object, overlap)){
-        bool retValue = overlap.left == _sprite.getGlobalBounds().left;
+        bool retValue = overlap.left == m_Sprite.getGlobalBounds().left;
         retValue &= overlap.height > 1;
         return retValue;
     }
@@ -84,7 +76,7 @@ bool Object::collisionLeft(Object &object) {
 bool Object::collisionUp(Object &object) {
     sf::FloatRect overlap;
     if(collision(object, overlap)){
-        bool retValue = overlap.top == _sprite.getGlobalBounds().top;
+        bool retValue = overlap.top == m_Sprite.getGlobalBounds().top;
         retValue &= overlap.width > 1;
         return retValue;
     }
@@ -94,7 +86,7 @@ bool Object::collisionUp(Object &object) {
 bool Object::collisionDown(Object &object) {
     sf::FloatRect overlap;
     if(collision(object, overlap)){
-        bool retValue = overlap.top +overlap.height == _sprite.getGlobalBounds().top + _sprite.getGlobalBounds().height;
+        bool retValue = overlap.top +overlap.height == m_Sprite.getGlobalBounds().top + m_Sprite.getGlobalBounds().height;
         retValue &= overlap.width > 1;
         return retValue;
     }
@@ -120,29 +112,25 @@ bool Object::markedForDeletion() {
     return _delete;
 }
 
-int Object::getSpeed() const {
-    return speed;
-}
-
 bool Object::hasGravity() {
-    return gravity;
+    return m_Gravity;
 }
 
 void Object::applyImpulse(sf::Vector2f impulse) {
-    direction += impulse;
+    m_Direction += impulse;
 }
 
 void Object::setImpulse(sf::Vector2f impulse) {
-    direction = impulse;
+    m_Direction = impulse;
 }
 
 const sf::Vector2f &Object::getDirection() const {
-    return direction;
+    return m_Direction;
 }
 
 Object::Object() {
-    position = {0,0};
-    speed = 0;
+    m_Position = {0,0};
+    m_Speed = 0;
 }
 
 void Object::step() {
@@ -154,15 +142,15 @@ bool Object::wouldCollide(Object &object) {
 }
 
 sf::FloatRect Object::getSize() {
-    return _sprite.getLocalBounds();
+    return m_Sprite.getLocalBounds();
 }
 
 void Object::completeInit(sf::Texture *texture) {
-    _sprite.setTexture(*texture);
-    _sprite.setPosition(position.x, position.y);
+    m_Sprite.setTexture(*texture);
+    m_Sprite.setPosition(m_Position.x, m_Position.y);
 }
 
 void Object::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(_sprite, states);
+    target.draw(m_Sprite, states);
 }
 

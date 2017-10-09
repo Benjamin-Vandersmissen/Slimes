@@ -13,7 +13,7 @@ class ControllableObject : public Object{
 protected:
     bool controlled = false;
     int facing = 1;
-    int maxNrJumps = 3;
+    int maxNrJumps = 2;
     int nrJumps = maxNrJumps;
 public:
     ControllableObject(float x, float y, int speed);

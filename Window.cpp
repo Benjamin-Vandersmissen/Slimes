@@ -118,7 +118,7 @@ std::vector<Object *> Window::objectsAt(sf::Vector2f position) {
 void Window::loadRoom(Room &room) {
     this->room = &room;
     window->close();
-    window->create(sf::VideoMode(room.size().x, room.size().y), "Slimes BETA v0.00000001");
+    window->create(sf::VideoMode(room.viewSize().x, room.viewSize().y), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
     sprites = room.getSprites();
     reloadRoom();
@@ -126,7 +126,7 @@ void Window::loadRoom(Room &room) {
 
 void Window::addObject(Object *object) {
     objects.push_back(object);
-    object->move(object->getPosition().x, object->getPosition().y); //Move the sprite to the right position
+    object->move(object->getPosition().x, object->getPosition().y); //Move the sprite to the right m_Position
     object->window = this;
 }
 
@@ -156,9 +156,22 @@ void Window::reloadRoom() {
     for(Object* object : objects){
         delete object;
     }
-    objects = room->getObjects();
-    m_View = room->getView();
-    this->window->setView(*m_View);
+    objects = {};
+
+    delete m_View;
+    m_View = new View;
+    m_View->setSize(room->getView()->getSize());
+    m_View->setCenter(room->getView()->getCenter());
+
+    std::vector<Object*> temp = room->getObjects();
+    for(Object* object : temp){
+        Object* newObject = object->clone();
+        if(room->getView()->followedObject() == object){
+            m_View->followObject(newObject);
+        }
+        objects.push_back(newObject);
+    }
+    updateView();
     for(Object* obj: objects){
         obj->window = this;
     }
@@ -180,5 +193,12 @@ View *Window::getView() {
 void Window::updateView() {
     this->m_View->updateView();
     this->window->setView(*m_View);
+}
+
+Window::~Window() {
+    for(Object* object: objects){
+        delete object;
+    }
+    delete m_View;
 }
 

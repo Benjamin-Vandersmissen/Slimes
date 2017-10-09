@@ -15,7 +15,7 @@ void ControllableObject::keyPressed(sf::Keyboard::Key key) {
         }
     }
     if (key == sf::Keyboard::LShift){
-        Projectile* projectile = new Projectile(position.x+getSize().width/2, position.y+getSize().height/2, this);
+        Projectile* projectile = new Projectile(m_Position.x+getSize().width/2, m_Position.y+getSize().height/2, this);
         window->addObject(projectile);
         projectile->setImpulse({facing*20.0f,0});
     }
@@ -33,7 +33,7 @@ void ControllableObject::keyboard() {
         facing = -1;
     else if(keyRight && !keyLeft)
         facing = 1;
-    int dx = (keyRight-keyLeft) * speed;
+    int dx = (keyRight-keyLeft) * m_Speed;
     window->moveObjectRel(this, dx, 0);
 }
 
@@ -58,10 +58,10 @@ bool ControllableObject::collision(Object &object) {
 void ControllableObject::toggleControlled() {
     if (controlled) {
         controlled = false;
-        _sprite.setColor({127,127,127});
+        m_Sprite.setColor({127,127,127});
     }else{
         controlled = true;
-        _sprite.setColor({255,255,255});
+        m_Sprite.setColor({255,255,255});
     }
 }
 

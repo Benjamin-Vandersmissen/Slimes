@@ -31,3 +31,9 @@ void AnimatedSprite::draw(sf::RenderTarget &target, sf::RenderStates states) con
     unsigned long index = (clock.getElapsedTime().asMilliseconds()/delay.asMilliseconds()) % sprites.size();
     target.draw(*sprites[index], states);
 }
+
+AnimatedSprite::~AnimatedSprite() {
+    for(sf::Sprite* sprite: sprites){
+        delete sprite;
+    }
+}

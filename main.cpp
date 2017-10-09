@@ -33,7 +33,7 @@ int main()
             2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     };
-    Person* person = new Person(128,500, 5);
+    Person* person = new Person(128,720, 5);
     room.setView(person, 600,600);
     room.addObject(person);
     sf::Texture* tiles = new sf::Texture;

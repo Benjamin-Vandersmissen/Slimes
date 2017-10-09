@@ -12,12 +12,12 @@ class Window;
 
 class Object : public sf::Drawable{
 protected:
-    sf::Sprite _sprite = sf::Sprite();
-    sf::Vector2f position;
+    sf::Sprite m_Sprite = sf::Sprite();
+    sf::Vector2f m_Position;
     bool _delete = false;
-    int speed;
-    bool gravity = false;
-    sf::Vector2f direction = {0,0};
+    int m_Speed;
+    bool m_Gravity = false;
+    sf::Vector2f m_Direction = {0,0};
 public:
     Window* window = nullptr;
 
@@ -35,8 +35,6 @@ public:
 
     void move(float x, float y);
 
-    void moveRel(float x, float y);
-
     bool collision(sf::FloatRect boundingBox);
 
     virtual bool collision(Object& object);
@@ -52,8 +50,6 @@ public:
     bool collisionDown(Object& object);
 
     const sf::Vector2f &getPosition() const;
-
-    virtual bool isMoveable();
 
     bool containsPoint(sf::Vector2f point);
 
@@ -72,8 +68,6 @@ public:
     void markForDeletion();
 
     bool markedForDeletion();
-
-    int getSpeed() const;
 
     bool hasGravity();
 

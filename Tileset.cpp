@@ -27,3 +27,9 @@ std::vector<sf::Sprite *> Tileset::generateSprites(int *grid, int w, int h, int 
     }
     return returnSprites;
 }
+
+Tileset::~Tileset() {
+    for(sf::Sprite* sprite : sprites){
+        delete sprite;
+    }
+}

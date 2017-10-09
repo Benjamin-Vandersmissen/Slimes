@@ -17,7 +17,7 @@ WallSlime::WallSlime(float x, float y, int speed) : Slime(x, y, speed) {
 }
 
 Object *WallSlime::clone() {
-    return new WallSlime(position.x, position.y, speed);
+    return new WallSlime(m_Position.x, m_Position.y, m_Speed);
 }
 
 std::string WallSlime::getType() {

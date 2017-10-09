@@ -23,8 +23,6 @@ private:
     std::vector<sf::Sprite*> sprites;
 
     View* m_View = nullptr;
-
-    View* m_View2 = nullptr;
 public:
     Room(unsigned int width, unsigned int height, unsigned int rastersize = 64);
 
@@ -35,6 +33,8 @@ public:
     const std::vector<Object *> getObjects();
 
     sf::Vector2u size() const;
+
+    sf::Vector2f viewSize() const;
 
     void addObject(Object* object);
 

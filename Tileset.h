@@ -20,6 +20,8 @@ public:
     int addSprite(int x, int y, int w, int h);
 
     std::vector<sf::Sprite*> generateSprites(int* grid, int w, int h, int rastersize = 64);
+
+    virtual ~Tileset();
 };
 
 

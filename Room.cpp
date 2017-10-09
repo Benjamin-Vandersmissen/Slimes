@@ -34,21 +34,7 @@ void Room::populateObjects(int *array) {
 }
 
 const std::vector<Object *> Room::getObjects(){
-    std::vector<Object*> temp;
-    if(m_View2)
-        delete m_View2;
-
-    m_View2 = new View;
-    m_View2->setSize(m_View->getSize());
-    m_View2->setCenter(m_View->getCenter());
-    for(Object* obj: objects){
-        Object* newObject = obj->clone();
-        if(m_View->followedObject() == obj){
-            m_View2->followObject(newObject);
-        }
-        temp.push_back(newObject);
-    }
-    return temp;
+    return objects;
 }
 
 sf::Vector2u Room::size() const {
@@ -84,5 +70,9 @@ void Room::setView(Object *object, float w, float h) {
 }
 
 View *Room::getView() const {
-    return m_View2;
+    return m_View;
+}
+
+sf::Vector2f Room::viewSize() const {
+    return m_View->getSize();
 }

@@ -12,7 +12,7 @@ Projectile::Projectile(float x, float y, ControllableObject *owner) : Object(x, 
         texture = new sf::Texture;
         texture->loadFromFile("projectile.png");
     }
-    gravity = true;
+    m_Gravity = true;
     completeInit(texture);
 }
 
@@ -21,7 +21,7 @@ std::string Projectile::getType() {
 }
 
 Object *Projectile::clone() {
-    return new Projectile(position.x, position.y, owner);
+    return new Projectile(m_Position.x, m_Position.y, owner);
 }
 
 bool Projectile::collision(Object &object) {

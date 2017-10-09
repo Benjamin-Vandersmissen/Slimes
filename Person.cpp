@@ -15,7 +15,7 @@ Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
         texture->loadFromFile("./player.png");
     }
     completeInit(texture);
-    gravity = true;
+    m_Gravity = true;
 
 }
 
@@ -29,12 +29,12 @@ bool Person::collision(Object &object) {
     bool retValue = ControllableObject::collision(object);
     if(retValue){
         if(Object::collisionDown(object) || Object::collisionUp(object)){
-            this->direction.y = 0;
+            this->m_Direction.y = 0;
         }
     }
     return retValue;
 }
 
 Object *Person::clone() {
-    return new Person(position.x, position.y, speed);
+    return new Person(m_Position.x, m_Position.y, m_Speed);
 }

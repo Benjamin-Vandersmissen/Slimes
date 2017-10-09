@@ -53,6 +53,8 @@ public:
     View* getView();
 
     void updateView();
+
+    virtual ~Window();
 };
 
 

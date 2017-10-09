@@ -13,8 +13,8 @@ Slime::Slime(float x, float y, int speed) : ControllableObject(x, y, speed)
         texture = new sf::Texture;
         texture->loadFromFile("./slime.png");
     }
-    gravity = true;
-    _sprite.setTexture(*texture);
+    m_Gravity = true;
+    m_Sprite.setTexture(*texture);
 }
 
 std::string Slime::getType() {
@@ -31,9 +31,9 @@ bool Slime::collision(Object &object) {
         if (retValue){
             //Bounce back from wall
             if(collisionLeft(object) || collisionRight(object))
-                direction.x = (std::abs(direction.x) > 1) ? -direction.x / 5 : 0;
+                m_Direction.x = (std::abs(m_Direction.x) > 1) ? -m_Direction.x / 5 : 0;
             if (collisionDown(object) || collisionUp(object))
-                direction.y = (std::abs(direction.y) > 1) ? -direction.y / 5 : 0;
+                m_Direction.y = (std::abs(m_Direction.y) > 1) ? -m_Direction.y / 5 : 0;
         }
         return retValue;
     }
@@ -43,6 +43,6 @@ bool Slime::collision(Object &object) {
 }
 
 Object *Slime::clone() {
-    return new Slime(position.x, position.y, speed);
+    return new Slime(m_Position.x, m_Position.y, m_Speed);
 }
 
