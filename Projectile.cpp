@@ -34,6 +34,9 @@ bool Projectile::collision(Object &object) {
             if(owner->isControlled()){
                 ControllableObject* obj = (ControllableObject*) &object;
                 obj->toggleControlled();
+                if(window->getView()->followedObject() == owner){
+                    window->getView()->followObject(obj);
+                }
                 owner->toggleControlled();
                 if(owner->getType() == "WallSlime") {
                     std::vector<Object *> objects = window->objectsAt(owner->bounds());

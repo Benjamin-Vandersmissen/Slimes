@@ -46,7 +46,7 @@ const std::vector<Object *> Room::getObjects(){
         if(m_View->followedObject() == obj){
             m_View2->followObject(newObject);
         }
-        temp.push_back(obj->clone());
+        temp.push_back(newObject);
     }
     return temp;
 }

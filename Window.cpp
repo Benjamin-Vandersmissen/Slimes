@@ -48,7 +48,7 @@ void Window::loop() {
             }
         }
         window->clear();
-        m_View->updateView();
+        updateView();
         for(auto it = objects.begin(); it != objects.end(); ){
             if((*it)->markedForDeletion()){
                 if(m_View->followedObject() == *it)
@@ -171,5 +171,14 @@ void Window::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for(Object* object : objects){
         target.draw(*object, states);
     }
+}
+
+View *Window::getView() {
+    return m_View;
+}
+
+void Window::updateView() {
+    this->m_View->updateView();
+    this->window->setView(*m_View);
 }
 
