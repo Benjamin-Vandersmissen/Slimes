@@ -48,6 +48,10 @@ ControllableObject::ControllableObject(float x, float y, int speed) : Object(x, 
 bool ControllableObject::collision(Object &object) {
     bool retvalue = Object::collision(object);
     if(retvalue){
+        if(object.getType() == "Key"){
+            //Pickup key
+            object.markForDeletion();
+        }
         bool collision = Object::collisionDown(object);
         if(collision)
             nrJumps = maxNrJumps;
@@ -66,7 +70,7 @@ void ControllableObject::toggleControlled() {
 }
 
 bool ControllableObject::wouldCollide(Object &object) {
-    std::vector<std::string> types = {"Slime", "ClimbSlime", "Person", "WallSlime"};
+    std::vector<std::string> types = {"Slime", "ClimbSlime", "Person", "WallSlime", "Key"};
     if(std::find(types.begin(), types.end(), object.getType()) != types.end()){
         return false;
     }

@@ -118,7 +118,7 @@ std::vector<Object *> Window::objectsAt(sf::Vector2f position) {
 void Window::loadRoom(Room &room) {
     this->room = &room;
     window->close();
-    window->create(sf::VideoMode(room.viewSize().x, room.viewSize().y), "Slimes BETA v0.00000001");
+    window->create(sf::VideoMode(static_cast<unsigned int>(room.viewSize().x), static_cast<unsigned int>(room.viewSize().y)), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
     sprites = room.getSprites();
     reloadRoom();
