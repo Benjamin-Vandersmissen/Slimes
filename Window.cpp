@@ -171,6 +171,7 @@ void Window::reloadRoom() {
         }
         objects.push_back(newObject);
     }
+    updateDepth();
     updateView();
     for(Object* obj: objects){
         obj->window = this;
@@ -200,5 +201,10 @@ Window::~Window() {
         delete object;
     }
     delete m_View;
+}
+
+void Window::updateDepth() {
+    std::sort(objects.begin(), objects.end(), compareDepth);
+
 }
 

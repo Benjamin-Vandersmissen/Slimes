@@ -6,6 +6,7 @@
 #include "ClimbSlime.h"
 #include "WallSlime.h"
 #include "AnimatedSprite.h"
+#include "Door.h"
 int main()
 {
     Window window(500,500);
@@ -15,6 +16,7 @@ int main()
     room.allocateObject(new Person(0,0,5));
     room.allocateObject(new ClimbSlime(0,0,5));
     room.allocateObject(new WallSlime(0,0,3));
+    room.allocateObject(new Door(0,0));
     int objects[] = {
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
@@ -27,7 +29,7 @@ int main()
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2,
-            2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 5, 0, 0, 2,
+            2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 5, 0, 6, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2,
             2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,

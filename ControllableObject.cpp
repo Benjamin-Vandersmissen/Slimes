@@ -70,8 +70,8 @@ void ControllableObject::toggleControlled() {
 }
 
 bool ControllableObject::wouldCollide(Object &object) {
-    std::vector<std::string> types = {"Slime", "ClimbSlime", "Person", "WallSlime", "Key"};
-    if(std::find(types.begin(), types.end(), object.getType()) != types.end()){
+    std::vector<std::string> types = {"Key", "Wall"};
+    if(std::find(types.begin(), types.end(), object.getType()) == types.end()){
         return false;
     }
     return true;

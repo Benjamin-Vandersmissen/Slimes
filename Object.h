@@ -18,6 +18,7 @@ protected:
     int m_Speed;
     bool m_Gravity = false;
     sf::Vector2f m_Direction = {0,0};
+    int depth = 0;
 public:
     Window* window = nullptr;
 
@@ -82,7 +83,11 @@ public:
     sf::FloatRect getSize();
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    int getDepth() const;
 };
+
+bool compareDepth(Object* obj1, Object* obj2);
 
 
 #endif //SLIMES_OBJECT_H

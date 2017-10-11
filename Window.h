@@ -55,7 +55,10 @@ public:
     void updateView();
 
     virtual ~Window();
+
+    void updateDepth();
 };
+
 
 
 #endif //SLIMES_WINDOW_H

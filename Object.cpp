@@ -154,3 +154,10 @@ void Object::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(m_Sprite, states);
 }
 
+int Object::getDepth() const {
+    return depth;
+}
+
+bool compareDepth(Object *obj1, Object *obj2) {
+    return obj1->getDepth() < obj2->getDepth();
+}
