@@ -17,6 +17,8 @@ public:
     bool collision(Object& object);
 
     Object* clone();
+
+    void keyPressed(sf::Keyboard::Key key);
 };
 
 

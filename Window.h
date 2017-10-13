@@ -57,6 +57,8 @@ public:
     virtual ~Window();
 
     void updateDepth();
+
+    const std::vector<Object *> &getObjects() const;
 };
 
 

@@ -2,7 +2,9 @@
 // Created by uauser on 10/2/17.
 //
 
+#include <iostream>
 #include "Person.h"
+#include "Door.h"
 
 sf::Texture* Person::texture = NULL;
 
@@ -37,4 +39,23 @@ bool Person::collision(Object &object) {
 
 Object *Person::clone() {
     return new Person(m_Position.x, m_Position.y, m_Speed);
+}
+
+void Person::keyPressed(sf::Keyboard::Key key) {
+    ControllableObject::keyPressed(key);
+    if(key == sf::Keyboard::Up){
+        std::vector<Object*> objects = window->objectsAt(m_Sprite.getGlobalBounds());
+        Door* door = nullptr;
+        for(Object* object : objects){
+            if(object->getType() == "Door"){
+                door = reinterpret_cast<Door*>(object);
+            }
+        }
+        if(door != nullptr){
+            Door* secondDoor = door->findMatchingDoor();
+            if(secondDoor != nullptr){
+                this->move(secondDoor->getPosition().x, secondDoor->getPosition().y);
+            }
+        }
+    }
 }

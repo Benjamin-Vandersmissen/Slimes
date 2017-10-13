@@ -208,3 +208,7 @@ void Window::updateDepth() {
 
 }
 
+const std::vector<Object *> &Window::getObjects() const {
+    return objects;
+}
+
