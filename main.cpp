@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "SlimesGame.h"
 #include "Slime.h"
 #include "Wall.h"
 #include "Tileset.h"
@@ -52,9 +52,9 @@ Room* createRoom(){
     room->addObject(new Door(64, 576, 1));
     room->addObject(new Door(896, 704, 1));
 
-    sf::Texture* tiles = new sf::Texture;
-    tiles->loadFromFile("tiles.png");
-    Tileset tileset(tiles);
+    sf::Texture* tileTexture = new sf::Texture;
+    tileTexture->loadFromFile("tiles.png");
+    Tileset tileset(tileTexture);
     tileset.addSprite(1856, 1408, 64, 64);
     int tileNrs[] = {
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -74,15 +74,15 @@ Room* createRoom(){
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
-    std::vector<sf::Sprite*> sprites = tileset.generateSprites(tileNrs, 16, 16);
-    room->setSprites(sprites);
+    std::vector<Tile*> tiles = tileset.generateSprites(tileNrs, 16, 16);
+    room->setTiles(tiles);
     room->populateObjects(objects);
     return room;
 }
 
 int main()
 {
-    Window window(500,500);
+    SlimesGame window(500,500);
     Room* room = createRoom();
     window.loadRoom(*room);
     window.loop();

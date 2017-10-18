@@ -9,17 +9,26 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 
+class Tile : public sf::Sprite{
+public:
+    Tile();
+
+    Tile(const sf::Texture &texture);
+
+    Tile(const sf::Texture &texture, const sf::IntRect &rectangle);
+};
+
 class Tileset {
 private:
     sf::Texture* texture;
-    std::vector<sf::Sprite*> sprites;
+    std::vector<Tile*> sprites;
 
 public:
     Tileset(sf::Texture *texture);
 
-    int addSprite(int x, int y, int w, int h);
+    size_t addSprite(int x, int y, int w, int h);
 
-    std::vector<sf::Sprite*> generateSprites(int* grid, int w, int h, int rastersize = 64);
+    std::vector<Tile*> generateSprites(int* grid, int w, int h, int rastersize = 64);
 
     virtual ~Tileset();
 };

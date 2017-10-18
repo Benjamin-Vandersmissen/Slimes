@@ -3,14 +3,14 @@
 //
 
 #include <iostream>
-#include "Window.h"
+#include "Game.h"
 
-Window::Window(unsigned int w, unsigned int h) {
+Game::Game(unsigned int w, unsigned int h) {
     window = new sf::RenderWindow(sf::VideoMode(w,h), "Slimes BETA V0.00000001");
     window->setFramerateLimit(60);
 }
 
-void Window::loop() {
+void Game::loop() {
     while (window->isOpen())
     {
         if (!window->hasFocus())
@@ -18,55 +18,19 @@ void Window::loop() {
         sf::Event event;
         while (window->pollEvent(event))
         {
-            switch(event.type)
-            {
-                case sf::Event::Closed:
-                {
-                    window->close();
-                    break;
-                }
-
-                case sf::Event::KeyPressed:
-                {
-                    if(event.key.code == sf::Keyboard::R)
-                        reloadRoom();
-                    int size = objects.size();
-                    for(int i = 0; i < size; i++){
-                        Object* object = objects[i];
-                        object->keyPressed(event.key.code);
-                    }
-                }
-                default:
-                    break;
-            }
+            handleEvent(event);
         }
-        for(Object* object : objects){
-            object->keyboard();
-            object->step();
-            if (object->hasGravity()){
-                applyGravity(object);
-            }
-        }
+        step();
         window->clear();
         updateView();
-        for(auto it = objects.begin(); it != objects.end(); ){
-            if((*it)->markedForDeletion()){
-                if(m_View->followedObject() == *it)
-                    m_View->followObject(nullptr);
-                delete *it;
-                it = objects.erase(it);
-            }
-            else{
-                ++it;
-            }
-        }
+        deleteMarkedObjects();
         window->draw(*this);
         window->display();
     }
 
 }
 
-Object *Window::moveObject(Object *object, float x, float y) {
+Object *Game::moveObject(Object *object, float x, float y) {
     sf::Vector2f origPosition = object->getPosition();
     object->move(x,y);
     for(Object* object1 : objects){
@@ -78,7 +42,7 @@ Object *Window::moveObject(Object *object, float x, float y) {
     return nullptr;
 }
 
-Object *Window::moveObjectRel(Object *object, float x, float y) {
+Object *Game::moveObjectRel(Object *object, float x, float y) {
     float a = 0, b = 0;
     float dx, dy;
     dx = x / std::max(std::abs(x),std::abs(y));
@@ -94,11 +58,11 @@ Object *Window::moveObjectRel(Object *object, float x, float y) {
     return nullptr;
 }
 
-Object *Window::moveObjectTick(Object *object) {
+Object *Game::moveObjectTick(Object *object) {
     return moveObjectRel(object, object->getDirection().x, object->getDirection().y);
 }
 
-Object *Window::objectAt(sf::Vector2f position) {
+Object *Game::objectAt(sf::Vector2f position) {
     for(Object* object: objects){
         if(object->containsPoint(position))
             return object;
@@ -106,7 +70,7 @@ Object *Window::objectAt(sf::Vector2f position) {
     return nullptr;
 }
 
-std::vector<Object *> Window::objectsAt(sf::Vector2f position) {
+std::vector<Object *> Game::objectsAt(sf::Vector2f position) {
     std::vector<Object*> temp;
     for(Object* object : objects){
         if (object->containsPoint(position))
@@ -115,22 +79,22 @@ std::vector<Object *> Window::objectsAt(sf::Vector2f position) {
     return temp;
 }
 
-void Window::loadRoom(Room &room) {
+void Game::loadRoom(Room &room) {
     this->room = &room;
     window->close();
     window->create(sf::VideoMode(static_cast<unsigned int>(room.viewSize().x), static_cast<unsigned int>(room.viewSize().y)), "Slimes BETA v0.00000001");
     window->setFramerateLimit(60);
-    sprites = room.getSprites();
+    tiles = room.getTiles();
     reloadRoom();
 }
 
-void Window::addObject(Object *object) {
+void Game::addObject(Object *object) {
     objects.push_back(object);
     object->move(object->getPosition().x, object->getPosition().y); //Move the sprite to the right m_Position
     object->window = this;
 }
 
-void Window::applyGravity(Object *object) {
+void Game::applyGravity(Object *object) {
     if (object->hasGravity()) {
         Object* bottomLeft = objectAt({object->bounds().left, object->bounds().top+object->bounds().height+1}); //Support bottom left
         bool hasSupport;
@@ -143,7 +107,7 @@ void Window::applyGravity(Object *object) {
     }
 }
 
-std::vector<Object *> Window::objectsAt(sf::FloatRect boundingBox) {
+std::vector<Object *> Game::objectsAt(sf::FloatRect boundingBox) {
     std::vector<Object*> temp;
     for(Object* object : objects){
         if(object->collision(boundingBox))
@@ -152,7 +116,7 @@ std::vector<Object *> Window::objectsAt(sf::FloatRect boundingBox) {
     return temp;
 }
 
-void Window::reloadRoom() {
+void Game::reloadRoom() {
     for(Object* object : objects){
         delete object;
     }
@@ -178,8 +142,8 @@ void Window::reloadRoom() {
     }
 }
 
-void Window::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for(sf::Sprite* sprite : sprites){
+void Game::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    for(sf::Sprite* sprite : tiles){
         target.draw(*sprite, states);
     }
     for(Object* object : objects){
@@ -187,28 +151,51 @@ void Window::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     }
 }
 
-View *Window::getView() {
+View *Game::getView() {
     return m_View;
 }
 
-void Window::updateView() {
+void Game::updateView() {
     this->m_View->updateView();
     this->window->setView(*m_View);
 }
 
-Window::~Window() {
+Game::~Game() {
     for(Object* object: objects){
         delete object;
     }
     delete m_View;
 }
 
-void Window::updateDepth() {
+void Game::updateDepth() {
     std::sort(objects.begin(), objects.end(), compareDepth);
-
 }
 
-const std::vector<Object *> &Window::getObjects() const {
+const std::vector<Object *> &Game::getObjects() const {
     return objects;
+}
+
+void Game::deleteMarkedObjects() {
+    for(auto it = objects.begin(); it != objects.end(); ){
+        if((*it)->markedForDeletion()){
+            if(m_View->followedObject() == *it)
+                m_View->followObject(nullptr);
+            delete *it;
+            it = objects.erase(it);
+        }
+        else{
+            ++it;
+        }
+    }
+}
+
+void Game::step() {
+    for(Object* object : objects){
+        object->keyboard();
+        object->step();
+        if (object->hasGravity()){
+            applyGravity(object);
+        }
+    }
 }
 

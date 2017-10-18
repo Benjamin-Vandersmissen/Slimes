@@ -2,8 +2,8 @@
 // Created by benji on 26.09.17.
 //
 
-#ifndef SLIMES_WINDOW_H
-#define SLIMES_WINDOW_H
+#ifndef SLIMES_GAME_H
+#define SLIMES_GAME_H
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "Room.h"
@@ -11,18 +11,27 @@
 class Object;
 class Room;
 class View;
-class Window : public sf::Drawable{
-private:
+class Tile;
+class Game : public sf::Drawable{
+protected:
     sf::RenderWindow* window;
     std::vector<Object*> objects;
     float gravity = 0.3;
     Room* room = NULL;
-    std::vector<sf::Sprite*> sprites;
+    std::vector<Tile*> tiles;
     View* m_View = nullptr;
 public:
-    Window(unsigned int w, unsigned int h);
+    Game(unsigned int w, unsigned int h);
 
     void loop();
+
+    virtual void handleEvent(sf::Event& event){
+
+    }
+
+    void deleteMarkedObjects();
+
+    virtual void step();
 
     void addObject(Object* object);
 
@@ -54,7 +63,7 @@ public:
 
     void updateView();
 
-    virtual ~Window();
+    virtual ~Game();
 
     void updateDepth();
 
@@ -63,4 +72,4 @@ public:
 
 
 
-#endif //SLIMES_WINDOW_H
+#endif //SLIMES_GAME_H

@@ -18,7 +18,6 @@ Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
     }
     completeInit(texture);
     m_Gravity = true;
-
 }
 
 std::string Person::getType() {

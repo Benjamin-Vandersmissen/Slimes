@@ -7,8 +7,8 @@
 
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
-#include "Window.h"
-class Window;
+#include "Game.h"
+class Game;
 
 class Object : public sf::Drawable{
 protected:
@@ -20,7 +20,7 @@ protected:
     sf::Vector2f m_Direction = {0,0};
     int depth = 0;
 public:
-    Window* window = nullptr;
+    Game* window = nullptr;
 
     Object();
 

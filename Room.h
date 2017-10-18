@@ -8,6 +8,7 @@
 #include <map>
 #include "Object.h"
 #include "View.h"
+#include "Tileset.h"
 
 class Object;
 class View;
@@ -20,7 +21,7 @@ private:
 
     std::vector<Object*> objects;
 
-    std::vector<sf::Sprite*> sprites;
+    std::vector<Tile*> tiles;
 
     View* m_View = nullptr;
 public:
@@ -38,9 +39,9 @@ public:
 
     void addObject(Object* object);
 
-    void setSprites(std::vector<sf::Sprite*> sprites);
+    void setTiles(std::vector<Tile *> tiles);
 
-    const std::vector<sf::Sprite *> &getSprites() const;
+    const std::vector<Tile *> &getTiles() const;
 
     void setView(float x, float y, float w, float h);
 

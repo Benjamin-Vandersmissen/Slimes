@@ -5,7 +5,6 @@
 #ifndef SLIMES_CONTROLLABLEOBJECT_H
 #define SLIMES_CONTROLLABLEOBJECT_H
 #include "Object.h"
-#include "Window.h"
 #include "Projectile.h"
 
 class Projectile;

@@ -45,12 +45,12 @@ void Room::addObject(Object *object) {
     objects.push_back(object);
 }
 
-void Room::setSprites(std::vector<sf::Sprite *> sprites) {
-    this->sprites = sprites;
+void Room::setTiles(std::vector<Tile *> tiles) {
+    this->tiles = tiles;
 }
 
-const std::vector<sf::Sprite *> &Room::getSprites() const {
-    return sprites;
+const std::vector<Tile *> &Room::getTiles() const {
+    return tiles;
 }
 
 void Room::setView(float x, float y, float w, float h) {
