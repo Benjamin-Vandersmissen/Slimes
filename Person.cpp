@@ -9,6 +9,7 @@
 sf::Texture* Person::texture = NULL;
 
 Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
+    depth = 10;
     controlled = true;
     maxNrJumps = 1;
     nrJumps = maxNrJumps;
@@ -18,6 +19,7 @@ Person::Person(float x, float y, int speed) : ControllableObject(x, y, speed) {
     }
     completeInit(texture);
     m_Gravity = true;
+    m_Sprite.setColor({255,255,255});
 }
 
 std::string Person::getType() {

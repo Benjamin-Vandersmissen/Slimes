@@ -18,6 +18,7 @@ public:
 
     std::string getType();
 
+    void onSwitchFrom();
 };
 
 

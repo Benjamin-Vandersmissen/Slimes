@@ -42,7 +42,8 @@ bool ControllableObject::isControlled() {
 }
 
 ControllableObject::ControllableObject(float x, float y, int speed) : Object(x, y, speed){
-
+    depth = 5;
+    m_Sprite.setColor({127,127,127});
 }
 
 bool ControllableObject::collision(Object &object) {
@@ -60,13 +61,7 @@ bool ControllableObject::collision(Object &object) {
 }
 
 void ControllableObject::toggleControlled() {
-    if (controlled) {
-        controlled = false;
-        m_Sprite.setColor({127,127,127});
-    }else{
-        controlled = true;
-        m_Sprite.setColor({255,255,255});
-    }
+    controlled = !controlled;
 }
 
 bool ControllableObject::wouldCollide(Object &object) {

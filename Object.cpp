@@ -158,6 +158,10 @@ int Object::getDepth() const {
     return depth;
 }
 
+void Object::setDepth(int depth) {
+    this->depth = depth;
+}
+
 bool compareDepth(Object *obj1, Object *obj2) {
     return obj1->getDepth() < obj2->getDepth();
 }

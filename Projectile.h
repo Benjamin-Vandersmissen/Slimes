@@ -21,6 +21,8 @@ public:
     Object* clone();
 
     bool collision(Object& object);
+
+    bool willSwitch(Object& object);
 };
 
 

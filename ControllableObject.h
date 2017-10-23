@@ -28,6 +28,16 @@ public:
     virtual bool collision(Object& object);
 
     virtual bool wouldCollide(Object& object);
+
+    virtual void onSwitchFrom(){
+        depth = 5;
+        m_Sprite.setColor({127,127,127});
+    };
+
+    virtual void onSwitchTo(){
+        depth = 10;
+        m_Sprite.setColor({255,255,255});
+    }
 };
 
 

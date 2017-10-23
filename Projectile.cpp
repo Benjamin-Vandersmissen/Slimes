@@ -29,25 +29,25 @@ bool Projectile::collision(Object &object) {
         return false;
     bool retValue = Object::collision(object);
     if(retValue){
-        std::vector<std::string> objectNames = {"Slime", "Person", "ClimbSlime", "WallSlime"};
-        if(std::find(objectNames.begin(), objectNames.end(), object.getType()) != objectNames.end()){
-            if(owner->isControlled()){
-                ControllableObject* obj = (ControllableObject*) &object;
-                obj->toggleControlled();
-                if(window->getView()->followedObject() == owner){
-                    window->getView()->followObject(obj);
-                }
-                owner->toggleControlled();
-                if(owner->getType() == "WallSlime") {
-                    std::vector<Object *> objects = window->objectsAt(owner->bounds());
-                    if (objects.size() == 1 && objects[0] == owner) {
-                        owner->markForDeletion();
-                        window->addObject(new Wall(owner->getPosition().x, owner->getPosition().y));
-                    }
-                }
+        if(willSwitch(object)){
+            ControllableObject* obj = reinterpret_cast<ControllableObject*>(&object);
+            owner->toggleControlled();
+            owner->onSwitchFrom();
+
+            obj->toggleControlled();
+            obj->onSwitchTo();
+
+            window->updateDepth();
+            if(window->getView()->followedObject() == owner){
+                window->getView()->followObject(obj);
             }
         }
         markForDeletion();
     }
     return retValue;
+}
+
+bool Projectile::willSwitch(Object &object) {
+    std::vector<std::string> objectNames = {"Slime", "Person", "ClimbSlime", "WallSlime"};
+    return std::find(objectNames.begin(), objectNames.end(), object.getType()) != objectNames.end() && owner->isControlled();
 }

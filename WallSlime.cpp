@@ -24,3 +24,12 @@ std::string WallSlime::getType() {
     return "WallSlime";
 }
 
+void WallSlime::onSwitchFrom() {
+    ControllableObject::onSwitchFrom();
+    std::vector<Object *> objects = window->objectsAt(bounds());
+    if (objects.size() == 1 && objects[0] == this) {
+        markForDeletion();
+        window->addObject(new Wall(m_Position.x, m_Position.y));
+    }
+}
+
