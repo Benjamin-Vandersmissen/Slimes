@@ -19,9 +19,9 @@ void SlimesGame::handleEvent(sf::Event &event) {
         {
             if(event.key.code == sf::Keyboard::R)
                 reloadRoom();
-            size_t size = objects.size();
+            size_t size = worldObjects.size();
             for(size_t i = 0; i < size; i++){
-                Object* object = objects[i];
+                Object* object = worldObjects[i];
                 object->keyPressed(event.key.code);
             }
         }

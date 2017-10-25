@@ -15,9 +15,10 @@ class Tile;
 class Game : public sf::Drawable{
 protected:
     sf::RenderWindow* window;
-    std::vector<Object*> objects;
+    std::vector<Object*> worldObjects;
+    std::vector<Object*> viewObjects;
     float gravity = 0.3;
-    Room* room = NULL;
+    Room* room = nullptr;
     std::vector<Tile*> tiles;
     View* m_View = nullptr;
 public:
@@ -58,6 +59,12 @@ public:
     void reloadRoom();
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    void drawWorld(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    void drawView(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    void drawToView(Object *object);
 
     View* getView();
 

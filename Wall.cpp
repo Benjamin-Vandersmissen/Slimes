@@ -12,7 +12,7 @@ Wall::Wall(float x, float y) : Object(x, y) {
         texture->loadFromFile("Wall.png");
     }
     m_Sprite.setTexture(*texture);
-    move(m_Position.x,m_Position.y);
+    move(m_worldPosition.x,m_worldPosition.y);
 }
 
 std::string Wall::getType() {
@@ -20,5 +20,5 @@ std::string Wall::getType() {
 }
 
 Object *Wall::clone() {
-    return new Wall(m_Position.x, m_Position.y);
+    return new Wall(m_worldPosition.x, m_worldPosition.y);
 }

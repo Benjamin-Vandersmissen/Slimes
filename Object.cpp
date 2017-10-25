@@ -7,10 +7,10 @@
 
 void Object::sprite(sf::Sprite sprite){
     this->m_Sprite = sprite;
-    this->m_Sprite.setPosition(m_Position);
+    this->m_Sprite.setPosition(m_worldPosition);
 }
 
-Object::Object(float x, float y) : m_Position({x,y}){
+Object::Object(float x, float y) : m_worldPosition({x,y}){
 
 }
 
@@ -20,8 +20,8 @@ Object::Object(float x, float y, int speed) : m_Speed(speed){
 }
 
 void Object::move(float x, float y) {
-    m_Position.x = x;
-    m_Position.y = y;
+    m_worldPosition.x = x;
+    m_worldPosition.y = y;
     this->m_Sprite.setPosition(x,y);
 }
 
@@ -36,7 +36,7 @@ bool Object::collision(Object &object) {
 }
 
 const sf::Vector2f &Object::getPosition() const {
-    return m_Position;
+    return m_worldPosition;
 }
 
 bool Object::containsPoint(sf::Vector2f point) {
@@ -129,7 +129,7 @@ const sf::Vector2f &Object::getDirection() const {
 }
 
 Object::Object() {
-    m_Position = {0,0};
+    m_worldPosition = {0,0};
     m_Speed = 0;
 }
 
@@ -147,11 +147,17 @@ sf::FloatRect Object::getSize() {
 
 void Object::completeInit(sf::Texture *texture) {
     m_Sprite.setTexture(*texture);
-    m_Sprite.setPosition(m_Position.x, m_Position.y);
+    m_Sprite.setPosition(m_worldPosition.x, m_worldPosition.y);
 }
 
 void Object::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(m_Sprite, states);
+    if(!drawingOnView)
+        target.draw(m_Sprite, states);
+    else{
+        sf::Sprite sprite = m_Sprite;
+        sprite.setPosition(target.mapPixelToCoords(m_viewPosition));
+        target.draw(sprite, states);
+    }
 }
 
 int Object::getDepth() const {
@@ -160,6 +166,10 @@ int Object::getDepth() const {
 
 void Object::setDepth(int depth) {
     this->depth = depth;
+}
+
+void Object::drawToView(sf::Vector2i &pixelposition) {
+    m_viewPosition = pixelposition;
 }
 
 bool compareDepth(Object *obj1, Object *obj2) {

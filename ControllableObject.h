@@ -35,7 +35,7 @@ public:
         depth = 5;
         m_Sprite.setColor({127,127,127});
         for(int i = 0; i < nrKeys; i++){
-            window->addObject(new Key(m_Position.x, m_Position.y));
+            window->addObject(new Key(m_worldPosition.x, m_worldPosition.y));
         }
         nrKeys = 0;
     };

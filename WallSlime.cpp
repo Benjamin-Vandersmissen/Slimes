@@ -17,7 +17,7 @@ WallSlime::WallSlime(float x, float y, int speed) : Slime(x, y, speed) {
 }
 
 Object *WallSlime::clone() {
-    return new WallSlime(m_Position.x, m_Position.y, m_Speed);
+    return new WallSlime(m_worldPosition.x, m_worldPosition.y, m_Speed);
 }
 
 std::string WallSlime::getType() {
@@ -29,7 +29,7 @@ void WallSlime::onSwitchFrom() {
     std::vector<Object *> objects = window->objectsAt(bounds());
     if (objects.size() == 1 && objects[0] == this) {
         markForDeletion();
-        window->addObject(new Wall(m_Position.x, m_Position.y));
+        window->addObject(new Wall(m_worldPosition.x, m_worldPosition.y));
     }
 }
 

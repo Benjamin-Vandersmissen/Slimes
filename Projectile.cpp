@@ -21,7 +21,7 @@ std::string Projectile::getType() {
 }
 
 Object *Projectile::clone() {
-    return new Projectile(m_Position.x, m_Position.y, owner);
+    return new Projectile(m_worldPosition.x, m_worldPosition.y, owner);
 }
 
 bool Projectile::collision(Object &object) {

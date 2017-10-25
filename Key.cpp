@@ -20,5 +20,5 @@ std::string Key::getType() {
 }
 
 Object *Key::clone() {
-    return new Key(m_Position.x,m_Position.y);
+    return new Key(m_worldPosition.x,m_worldPosition.y);
 }

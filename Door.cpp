@@ -2,6 +2,7 @@
 // Created by uauser on 10/11/17.
 //
 
+#include <iostream>
 #include "Door.h"
 
 sf::Texture* Door::lockedTexture = nullptr;
@@ -24,7 +25,7 @@ std::string Door::getType() {
 }
 
 Object *Door::clone() {
-    return new Door(m_Position.x ,m_Position.y);
+    return new Door(m_worldPosition.x ,m_worldPosition.y, m_ID);
 }
 
 unsigned int Door::getID() const {
@@ -48,6 +49,7 @@ Door *Door::findMatchingDoor() {
 }
 
 Door::Door(float x, float y, unsigned int ID) : Object(x,y), m_ID(ID){
+    completeInit(lockedTexture);
 }
 
 bool Door::isLocked() const {
@@ -57,6 +59,7 @@ bool Door::isLocked() const {
 void Door::unlock() {
     locked = false;
     completeInit(unlockedTexture);
+    Door* deur = findMatchingDoor();
     findMatchingDoor()->locked = false;
     findMatchingDoor()->completeInit(unlockedTexture);
 }

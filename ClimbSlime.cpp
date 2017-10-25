@@ -43,14 +43,14 @@ void ClimbSlime::keyboard() {
     
     
     
-    Object* objectLeftTopLeft = window->objectAt({m_Position.x-1, m_Position.y});
-    Object* objectTopTopLeft = window->objectAt({m_Position.x, m_Position.y-1});
-    Object* objectRightTopRight = window->objectAt({m_Position.x+m_Sprite.getLocalBounds().width, m_Position.y});
-    Object* objectTopTopRight = window->objectAt({m_Position.x+m_Sprite.getLocalBounds().width-1, m_Position.y-1});
-    Object* objectLeftBottomLeft = window->objectAt({m_Position.x-1, m_Position.y+m_Sprite.getLocalBounds().height-1});
-    Object* objectBottomBottomLeft = window->objectAt({m_Position.x, m_Position.y+m_Sprite.getLocalBounds().height});
-    Object* objectRightBottomRight = window->objectAt({m_Position.x+m_Sprite.getLocalBounds().width, m_Position.y+m_Sprite.getGlobalBounds().height-1});
-    Object* objectBottomBottomRight = window->objectAt({m_Position.x+m_Sprite.getLocalBounds().width-1, m_Position.y+m_Sprite.getGlobalBounds().height});
+    Object* objectLeftTopLeft = window->objectAt({m_worldPosition.x-1, m_worldPosition.y});
+    Object* objectTopTopLeft = window->objectAt({m_worldPosition.x, m_worldPosition.y-1});
+    Object* objectRightTopRight = window->objectAt({m_worldPosition.x+m_Sprite.getLocalBounds().width, m_worldPosition.y});
+    Object* objectTopTopRight = window->objectAt({m_worldPosition.x+m_Sprite.getLocalBounds().width-1, m_worldPosition.y-1});
+    Object* objectLeftBottomLeft = window->objectAt({m_worldPosition.x-1, m_worldPosition.y+m_Sprite.getLocalBounds().height-1});
+    Object* objectBottomBottomLeft = window->objectAt({m_worldPosition.x, m_worldPosition.y+m_Sprite.getLocalBounds().height});
+    Object* objectRightBottomRight = window->objectAt({m_worldPosition.x+m_Sprite.getLocalBounds().width, m_worldPosition.y+m_Sprite.getGlobalBounds().height-1});
+    Object* objectBottomBottomRight = window->objectAt({m_worldPosition.x+m_Sprite.getLocalBounds().width-1, m_worldPosition.y+m_Sprite.getGlobalBounds().height});
 
     bool leftTopLeft = objectLeftTopLeft == nullptr ? false : this->wouldCollide(*objectLeftTopLeft);
     bool topTopLeft = objectTopTopLeft == nullptr ? false : this->wouldCollide(*objectTopTopLeft);
@@ -77,7 +77,7 @@ void ClimbSlime::keyboard() {
 }
 
 Object *ClimbSlime::clone() {
-    return new ClimbSlime(m_Position.x, m_Position.y, m_Speed);
+    return new ClimbSlime(m_worldPosition.x, m_worldPosition.y, m_Speed);
 }
 
 std::string ClimbSlime::getType() {

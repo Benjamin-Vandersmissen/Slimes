@@ -39,7 +39,7 @@ bool Person::collision(Object &object) {
 }
 
 Object *Person::clone() {
-    return new Person(m_Position.x, m_Position.y, m_Speed);
+    return new Person(m_worldPosition.x, m_worldPosition.y, m_Speed);
 }
 
 void Person::keyPressed(sf::Keyboard::Key key) {

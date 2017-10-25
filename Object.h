@@ -13,11 +13,13 @@ class Game;
 class Object : public sf::Drawable{
 protected:
     sf::Sprite m_Sprite = sf::Sprite();
-    sf::Vector2f m_Position;
+    sf::Vector2f m_worldPosition;
+    sf::Vector2i m_viewPosition;
     bool _delete = false;
     int m_Speed;
     bool m_Gravity = false;
     sf::Vector2f m_Direction = {0,0};
+    bool drawingOnView  = false;
     int depth = 0;
 public:
     Game* window = nullptr;
@@ -87,6 +89,8 @@ public:
     int getDepth() const;
 
     void setDepth(int depth);
+
+    void drawToView(sf::Vector2i& pixelposition = {0,0});
 };
 
 bool compareDepth(Object* obj1, Object* obj2);
