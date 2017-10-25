@@ -10,7 +10,11 @@
 
 class Door : public Object{
 private:
-    static sf::Texture* texture;
+    static sf::Texture* lockedTexture;
+
+    static sf::Texture* unlockedTexture;
+
+    bool locked = true;
 
     unsigned int m_ID;
 public:
@@ -27,6 +31,10 @@ public:
     void setID(unsigned int ID);
 
     Door* findMatchingDoor();
+
+    bool isLocked() const;
+
+    void unlock();
 };
 
 

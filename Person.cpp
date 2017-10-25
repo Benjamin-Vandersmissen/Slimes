@@ -53,9 +53,17 @@ void Person::keyPressed(sf::Keyboard::Key key) {
             }
         }
         if(door != nullptr){
-            Door* secondDoor = door->findMatchingDoor();
-            if(secondDoor != nullptr){
-                this->move(secondDoor->getPosition().x, secondDoor->getPosition().y);
+            if(door->isLocked()){
+                if(nrKeys > 0){
+                    nrKeys--;
+                    door->unlock();
+                }
+            }
+            else {
+                Door *secondDoor = door->findMatchingDoor();
+                if (secondDoor != nullptr) {
+                    this->move(secondDoor->getPosition().x, secondDoor->getPosition().y);
+                }
             }
         }
     }

@@ -6,6 +6,7 @@
 #define SLIMES_CONTROLLABLEOBJECT_H
 #include "Object.h"
 #include "Projectile.h"
+#include "Key.h"
 
 class Projectile;
 class ControllableObject : public Object{
@@ -14,6 +15,7 @@ protected:
     int facing = 1;
     int maxNrJumps = 2;
     int nrJumps = maxNrJumps;
+    int nrKeys = 0;
 public:
     ControllableObject(float x, float y, int speed);
 
@@ -32,6 +34,10 @@ public:
     virtual void onSwitchFrom(){
         depth = 5;
         m_Sprite.setColor({127,127,127});
+        for(int i = 0; i < nrKeys; i++){
+            window->addObject(new Key(m_Position.x, m_Position.y));
+        }
+        nrKeys = 0;
     };
 
     virtual void onSwitchTo(){

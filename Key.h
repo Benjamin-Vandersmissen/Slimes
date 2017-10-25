@@ -9,10 +9,15 @@
 
 
 class Key : public Object{
+private:
+    static sf::Texture* texture;
+
 public:
     Key(float x, float y);
 
+    std::string getType();
 
+    Object* clone();
 };
 
 

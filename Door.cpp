@@ -4,15 +4,19 @@
 
 #include "Door.h"
 
-sf::Texture* Door::texture = nullptr;
+sf::Texture* Door::lockedTexture = nullptr;
+
+sf::Texture* Door::unlockedTexture = nullptr;
 
 Door::Door(float x, float y) : Object(x, y) {
     depth = -10;
-    if(!texture){
-        texture = new sf::Texture();
-        texture->loadFromFile("./tiles.png",sf::IntRect(448,1408,64,64));
+    if(!lockedTexture){
+        unlockedTexture = new sf::Texture();
+        unlockedTexture->loadFromFile("./tiles.png",sf::IntRect(448,1408,64,64));
+        lockedTexture = new sf::Texture();
+        lockedTexture->loadFromFile("./tiles.png", sf::IntRect(384,1408,64,64));
     }
-    completeInit(texture);
+    completeInit(lockedTexture);
 }
 
 std::string Door::getType() {
@@ -44,4 +48,15 @@ Door *Door::findMatchingDoor() {
 }
 
 Door::Door(float x, float y, unsigned int ID) : Object(x,y), m_ID(ID){
+}
+
+bool Door::isLocked() const {
+    return locked;
+}
+
+void Door::unlock() {
+    locked = false;
+    completeInit(unlockedTexture);
+    findMatchingDoor()->locked = false;
+    findMatchingDoor()->completeInit(unlockedTexture);
 }

@@ -7,6 +7,7 @@
 #include "WallSlime.h"
 #include "AnimatedSprite.h"
 #include "Door.h"
+#include "Key.h"
 
 Room* createRoom(){
     Room* room = new Room(1024,1024);
@@ -20,6 +21,7 @@ Room* createRoom(){
     room->allocateObject(new ClimbSlime(0,0,5));
     room->allocateObject(new WallSlime(0,0,3));
     room->allocateObject(new Door(0,0));
+    room->allocateObject(new Key(0,0));
 
     int objects[] = {
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2,
@@ -36,7 +38,7 @@ Room* createRoom(){
             2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 5, 0, 0, 2,
             2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2,
             2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
-            2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
+            2, 7, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
             2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
     };
     /**

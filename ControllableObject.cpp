@@ -52,6 +52,7 @@ bool ControllableObject::collision(Object &object) {
         if(object.getType() == "Key"){
             //Pickup key
             object.markForDeletion();
+            nrKeys++;
         }
         bool collision = Object::collisionDown(object);
         if(collision)
@@ -66,8 +67,5 @@ void ControllableObject::toggleControlled() {
 
 bool ControllableObject::wouldCollide(Object &object) {
     std::vector<std::string> types = {"Key", "Wall"};
-    if(std::find(types.begin(), types.end(), object.getType()) == types.end()){
-        return false;
-    }
-    return true;
+    return std::find(types.begin(), types.end(), object.getType()) != types.end();
 }
